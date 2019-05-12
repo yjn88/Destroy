@@ -22,14 +22,20 @@
     4.Add a reference to Destroy.dll in your C# project.
 
 ### Links:
-    1.Windows Console:
+    1.Roguelike:
+        http://pre-sence.com/archives/roguelike-dossier
+
+    2.Semantic Versioning:
+        https://semver.org/
+
+    3.Windows Console:
         https://docs.microsoft.com/en-us/windows/console/
 
-    2.Windows Console's Developers:
+    4.Windows Console's Developers:
         https://devblogs.microsoft.com/commandline/author/richturnmicrosoft-com/
     
-    3.System.Console:
+    5.System.Console:
         https://docs.microsoft.com/en-us/dotnet/api/system.console?redirectedfrom=MSDN&view=netframework-4.7.2
 
-    4.System.Console's Source Code:
+    6.System.Console's Source Code:
         https://referencesource.microsoft.com/#mscorlib/system/console.cs
