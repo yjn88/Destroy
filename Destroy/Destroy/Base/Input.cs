@@ -164,20 +164,20 @@
 
         internal static void CheckMouseState()
         {
-            bool r = CONSOLE.READ_CONSOLE_INPUT(CONSOLE.InputHandle,
+            bool r = KERNEL.READ_CONSOLE_INPUT(CONSOLE.InputHandle,
                 out short cursorPosX, out short cursorPosY);
             if (r)
             {
                 CursorPosition = new Vector2(cursorPosX, cursorPosY);
             }
 
-            CONSOLE.GET_CURSOR_POS(out int mousePosX, out int mousePosY);
+            KERNEL.GET_CURSOR_POS(out int mousePosX, out int mousePosY);
 
             MousePosition = new Vector2(mousePosX, mousePosY);
-            ConsoleInFocus = CONSOLE.GET_WINDOW_IN_FOCUS();
+            ConsoleInFocus = KERNEL.GET_WINDOW_IN_FOCUS();
             //判断鼠标是否则在控制台窗口内
-            CONSOLE.GET_WINDOW_POS(out int windowPosX, out int windowPosY);
-            CONSOLE.GET_WINDOW_SIZE(out int width, out int height);
+            KERNEL.GET_WINDOW_POS(out int windowPosX, out int windowPosY);
+            KERNEL.GET_WINDOW_SIZE(out int width, out int height);
             if (mousePosX > windowPosX && mousePosX < windowPosX + width &&
                 mousePosY > windowPosY && mousePosY < windowPosY + height)
             {

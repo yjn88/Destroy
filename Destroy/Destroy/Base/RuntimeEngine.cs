@@ -37,8 +37,8 @@
             //设置标准控制台模式
             CONSOLE.SetStdConsoleMode(CONSOLE.OutputHandle, CONSOLE.InputHandle);
             //65001 = UTF8
-            CONSOLE.SET_CONSOLE_CP((uint)Encoding.UTF8.CodePage);
-            CONSOLE.SET_CONSOLE_OUTPUT_CP((uint)Encoding.UTF8.CodePage);
+            KERNEL.SET_CONSOLE_CP((uint)Encoding.UTF8.CodePage);
+            KERNEL.SET_CONSOLE_OUTPUT_CP((uint)Encoding.UTF8.CodePage);
             CONSOLE.Title = title;
 
             switch (consoleType)
@@ -55,7 +55,7 @@
             }
             if (maximum)
             {
-                CONSOLE.SET_WINDOW_POS(0, 0);
+                KERNEL.SET_WINDOW_POS(0, 0);
             }
         }
 
@@ -77,22 +77,22 @@
 
             while (run)
             {
-                CONSOLE.START_TIMING(out long freq, out long start);
-                
+                KERNEL.START_TIMING(out long freq, out long start);
+
                 //每帧执行一次, 防止控制台窗口大小变化时光标再次出现
-                CONSOLE.SET_CONSOLE_CURSOR_INFO(CONSOLE.OutputHandle, false, 1);
+                KERNEL.SET_CONSOLE_CURSOR_INFO(CONSOLE.OutputHandle, false, 1);
                 Time.DeltaTime = deltaTime;         //赋值DeltaTime
                 Time.TotalTime += Time.DeltaTime;   //赋值TotalTime
                 Input.CheckMouseState();            //检测鼠标状态
                 onUpdate?.Invoke();                 //每帧更新游戏
                 Input.CheckKeyboardState();         //检测键盘状态
 
-                CONSOLE.END_TIMING(freq, start, out timeCost);
+                KERNEL.END_TIMING(freq, start, out timeCost);
 
                 while (timeCost < tickTime)
                 {
                     Thread.Sleep(0);                //短暂让出线程防止死循环
-                    CONSOLE.END_TIMING(freq, start, out timeCost);
+                    KERNEL.END_TIMING(freq, start, out timeCost);
                 }
 
                 deltaTime = (float)timeCost / 1000;
@@ -117,7 +117,7 @@
         {
             CONSOLE.SetConsoleFont(CONSOLE.OutputHandle, false, fontWidth, fontHeight, fontName);
 
-            CONSOLE.GET_LARGEST_CONSOLE_WINDOW_SIZE(CONSOLE.OutputHandle,
+            KERNEL.GET_LARGEST_CONSOLE_WINDOW_SIZE(CONSOLE.OutputHandle,
                     out short largestWidth, out short largestHeight);
 
             if (maximum)
@@ -130,9 +130,9 @@
                 throw new Exception("specific width/height is too big!");
             }
 
-            CONSOLE.SET_CONSOLE_WINDOW_SIZE(CONSOLE.OutputHandle, 1, 1);
-            CONSOLE.SET_CONSOLE_BUFFER_SIZE(CONSOLE.OutputHandle, width, height);
-            CONSOLE.SET_CONSOLE_WINDOW_SIZE(CONSOLE.OutputHandle, width, height);
+            KERNEL.SET_CONSOLE_WINDOW_SIZE(CONSOLE.OutputHandle, 1, 1);
+            KERNEL.SET_CONSOLE_BUFFER_SIZE(CONSOLE.OutputHandle, width, height);
+            KERNEL.SET_CONSOLE_WINDOW_SIZE(CONSOLE.OutputHandle, width, height);
         }
     }
 }

@@ -993,7 +993,7 @@
         /// <param name="y">纵向坐标</param>
         public void Render(short x = 0, short y = 0)
         {
-            CONSOLE.WRITE_CONSOLE_OUTPUT(CONSOLE.OutputHandle, infos,
+            KERNEL.WRITE_CONSOLE_OUTPUT(CONSOLE.OutputHandle, infos,
                 x, y, (short)(Width * (int)CharWidth), Height);
         }
 
