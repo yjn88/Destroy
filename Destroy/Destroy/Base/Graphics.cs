@@ -993,6 +993,11 @@
         /// <param name="y">纵向坐标</param>
         public void Render(short x = 0, short y = 0)
         {
+            //控制台现在最多只能打印双宽字符, 不能打印三宽以上的字符(比如部分阿拉伯文), 并且不支持大部分表情与特殊符号。
+            //可以只使用一个CHAR_INFO只打印一个中文的左半部分, 如果要打印一个完整的中文字符则需要两个CHAR_INFO, 并且必须保证第一个CHAR_INFO与第二个CHAR_INFO前景色与背景色一致, 第一个CHAR_INFO保存中文, 第二个CHAR_INFO保存'\0'空字符。
+            //一旦第一个CHAR_INFO的中文被覆盖意味着这个中文字符无法显示。
+            //一个中文的右半部分可以被隐去, 并且右半部分可以是一个英文或者空字符甚至可以是一个另外的中文的左半部分。
+            //一个中文无法单独显示右半部分。
             KERNEL.WRITE_CONSOLE_OUTPUT(CONSOLE.OutputHandle, infos,
                 x, y, (short)(Width * (int)CharWidth), Height);
         }
