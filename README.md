@@ -31,8 +31,8 @@
     3.Windows Console:
         https://docs.microsoft.com/en-us/windows/console/
 
-    4.Windows Console's Developers:
-        https://devblogs.microsoft.com/commandline/author/richturnmicrosoft-com/
+    4.Windows Console's Introducing:
+        https://devblogs.microsoft.com/commandline/
     
     5.System.Console:
         https://docs.microsoft.com/en-us/dotnet/api/system.console?redirectedfrom=MSDN&view=netframework-4.7.2
