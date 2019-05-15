@@ -1,11 +1,13 @@
 # Destroy
 
-### DestroyCompany Presents
+### GreatDestroyerCharlie Presents
 
 ### Note:
     1.Tested and passed on x64 Windows 10 (1803 and above).
 
     2.Destroy.dll depending on .Net Framework 4.7.2.
+
+    3.The project is about to be fully updated.
 
 ### Structure:
     1.Destroy contains interfaces that interact with DestroyKernel and high-level APIs of ConsoleGameEngine.

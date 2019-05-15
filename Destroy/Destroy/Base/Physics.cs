@@ -109,7 +109,7 @@
         }
 
         /// <summary>
-        /// 添加碰撞器
+        /// 添加碰撞器(该方法可能会触发碰撞回调)
         /// </summary>
         /// <param name="collider">碰撞器</param>
         public void AddCollider(Collider collider)
@@ -209,7 +209,7 @@
         }
 
         /// <summary>
-        /// 移动该碰撞器
+        /// 移动该碰撞器(该方法可能会触发碰撞回调)
         /// </summary>
         /// <param name="collider">碰撞器</param>
         /// <param name="addition">增量</param>
