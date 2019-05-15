@@ -52,6 +52,7 @@
     <Compile Include="Base\Navigation.cs" />
     <Compile Include="Base\Physics.cs" />
     <Compile Include="Base\RuntimeEngine.cs" />
+    <Compile Include="Base\Singleton.cs" />
     <Compile Include="Base\Time.cs" />
     <Compile Include="Base\Vector2.cs" />
     <Compile Include="Base\Vector2Float.cs" />
