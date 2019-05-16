@@ -383,7 +383,7 @@
     /// </summary>
     public static class CONSOLE
     {
-        #region Package
+        #region Package KERNEL
 
         private const int SIZE_OF_WCHAR = 2;
 
@@ -738,7 +738,7 @@
 
         #endregion
 
-        #region Console
+        #region Simple Console
 
         private static bool treatControlCAsInput = false;
 
@@ -1020,14 +1020,22 @@
         }
 
         /// <summary>
-        /// 获取用户按下的下一个字符或功能键, 按下的键可以选择显示在控制台窗口中
+        /// 获取用户输入的下一个控制台按键
         /// </summary>
-        /// <param name="intercept">确定是否在控制台窗口中显示按下的键</param>
-        /// <returns>控制台按键信息</returns>
-        public static ConsoleKeyInfo ReadKey(bool intercept = true)
+        /// <returns>控制台按键</returns>
+        public static ConsoleKey ReadKey()
         {
-            ConsoleKeyInfo consoleKeyInfo = Console.ReadKey(intercept);
-            return consoleKeyInfo;
+            while (true)
+            {
+                foreach (object item in Enum.GetValues(typeof(ConsoleKey)))
+                {
+                    ConsoleKey consoleKey = (ConsoleKey)item;
+                    if (GetKey(consoleKey))
+                    {
+                        return consoleKey;
+                    }
+                }
+            }
         }
 
         /// <summary>
