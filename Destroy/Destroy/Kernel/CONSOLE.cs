@@ -383,176 +383,13 @@
     /// </summary>
     public static class CONSOLE
     {
+        #region Package
+
         private const int SIZE_OF_WCHAR = 2;
 
         private const int MAX_PATH = 260;
 
         private const int FACE_SIZE = 32;
-
-        /// <summary>
-        /// 弹出消息框
-        /// </summary>
-        /// <param name="text">消息框文本</param>
-        /// <param name="caption">消息框标题</param>
-        /// <param name="messageBoxType">消息框类型</param>
-        /// <param name="messageBoxIcon">消息框图标</param>
-        /// <param name="messageBoxDefault">消息框默认选项</param>
-        /// <returns>用户选择</returns>
-        public static MessageBoxChoice MessageBox
-        (
-            string text, string caption,
-            MessageBoxType messageBoxType,
-            MessageBoxIcon messageBoxIcon,
-            MessageBoxDefault messageBoxDefault
-        )
-        {
-            uint type = (uint)messageBoxType | (uint)messageBoxIcon | (uint)messageBoxDefault;
-            Error.Check(KERNEL.MESSAGE_BOX(text, caption, type, out int choose));
-            return (MessageBoxChoice)choose;
-        }
-
-        /// <summary>
-        /// 获取按键输入
-        /// </summary>
-        /// <param name="consoleKey">控制台按键</param>
-        /// <returns>是否按下</returns>
-        public static bool GetKey(ConsoleKey consoleKey)
-        {
-            return KERNEL.GET_KEY((int)consoleKey);
-        }
-
-        /// <summary>
-        /// 获取控制台句柄
-        /// </summary>
-        /// <param name="handleType">句柄类型</param>
-        /// <returns>句柄</returns>
-        public static IntPtr GetConsoleHandle(HandleType handleType)
-        {
-            unchecked
-            {
-                Error.Check(KERNEL.GET_CONSOLE_HANDLE(out IntPtr handle, (uint)handleType));
-                return handle;
-            }
-        }
-
-        /// <summary>
-        /// 获取控制台字体
-        /// </summary>
-        /// <param name="consoleOutputHandle">控制台标准输出句柄</param>
-        /// <param name="bold">是否使用粗体</param>
-        /// <param name="fontWidth">字体宽度</param>
-        /// <param name="fontHeight">字体高度</param>
-        /// <param name="fontName">字体名字</param>
-        public static void GetConsoleFont
-        (
-            IntPtr consoleOutputHandle,
-            out bool bold, out short fontWidth,
-            out short fontHeight, out string fontName
-        )
-        {
-            byte[] bytes = new byte[FACE_SIZE * SIZE_OF_WCHAR];
-
-            Error.Check(KERNEL.GET_CONSOLE_FONT(consoleOutputHandle, out bold,
-                out fontWidth, out fontHeight, ref bytes[0]));
-
-            string str = Encoding.Unicode.GetString(bytes);
-            string[] strArray = str.Split('\0');
-            fontName = strArray[0];
-        }
-
-        /// <summary>
-        /// 设置控制台字体
-        /// </summary>
-        /// <param name="consoleOutputHandle">控制台标准输出句柄</param>
-        /// <param name="bold">是否使用粗体</param>
-        /// <param name="fontWidth">字体宽度</param>
-        /// <param name="fontHeight">字体高度</param>
-        /// <param name="fontName">字体名字</param>
-        public static void SetConsoleFont
-        (
-            IntPtr consoleOutputHandle, bool bold,
-            short fontWidth, short fontHeight, string fontName
-        )
-        {
-            Error.Check(KERNEL.SET_CONSOLE_FONT(consoleOutputHandle, bold, fontWidth, fontHeight,
-                fontName, (uint)fontName.Length));
-        }
-
-        /// <summary>
-        /// 获取控制台标题
-        /// </summary>
-        /// <returns>控制台标题</returns>
-        public static string GetConsoleTitle()
-        {
-            byte[] bytes = new byte[MAX_PATH * SIZE_OF_WCHAR];
-
-            Error.Check(KERNEL.GET_CONSOLE_TITLE(ref bytes[0], out uint length));
-
-            string title = Encoding.Unicode.GetString(bytes, 0, (int)length * SIZE_OF_WCHAR);
-
-            return title;
-        }
-
-        /// <summary>
-        /// 获取控制台特性
-        /// </summary>
-        /// <param name="consoleOutputHandle">控制台标准输出句柄</param>
-        /// <param name="foreColor">前景色</param>
-        /// <param name="backColor">背景色</param>
-        public static void GetConsoleAttribute
-        (
-            IntPtr consoleOutputHandle,
-            out ConsoleColor foreColor, out ConsoleColor backColor
-        )
-        {
-            Error.Check(KERNEL.GET_CONSOLE_ATTRIBUTE(consoleOutputHandle,
-                out ushort f, out ushort b));
-            foreColor = (ConsoleColor)f;
-            backColor = (ConsoleColor)b;
-        }
-
-        /// <summary>
-        /// 设置控制台特性
-        /// </summary>
-        /// <param name="consoleOutputHandle">控制台标准输出句柄</param>
-        /// <param name="foreColor">前景色</param>
-        /// <param name="backColor">背景色</param>
-        public static void SetConsoleAttribute
-        (
-            IntPtr consoleOutputHandle,
-            ConsoleColor foreColor, ConsoleColor backColor
-        )
-        {
-            Error.Check(KERNEL.SET_CONSOLE_ATTRIBUTE(consoleOutputHandle,
-                (ushort)foreColor, (ushort)backColor));
-        }
-
-        /// <summary>
-        /// 读取控制台
-        /// </summary>
-        /// <param name="consoleInputHandle">控制台标准输入句柄</param>
-        /// <returns>字符串</returns>
-        public static string ReadConsole(IntPtr consoleInputHandle)
-        {
-            byte[] bytes = new byte[MAX_PATH * SIZE_OF_WCHAR];
-
-            Error.Check(KERNEL.READ_CONSOLE(consoleInputHandle, ref bytes[0], MAX_PATH, out uint read));
-
-            string str = Encoding.Unicode.GetString(bytes, 0, (int)read * SIZE_OF_WCHAR);
-            //删除换行符
-            str = str.Substring(0, str.Length - Environment.NewLine.Length);
-            return str;
-        }
-
-        /// <summary>
-        /// 写入控制台
-        /// </summary>
-        /// <param name="consoleOutputHandle">控制台标准输出句柄</param>
-        /// <param name="str">字符串</param>
-        public static void WriteConsole(IntPtr consoleOutputHandle, string str)
-        {
-            Error.Check(KERNEL.WRITE_CONSOLE(consoleOutputHandle, str, (uint)str.Length));
-        }
 
         private static IntPtr inputHandle;
 
@@ -606,21 +443,6 @@
         }
 
         /// <summary>
-        /// 获取或设置要显示在控制台标题栏中的标题
-        /// </summary>
-        public static string Title
-        {
-            get
-            {
-                return GetConsoleTitle();
-            }
-            set
-            {
-                Error.Check(KERNEL.SET_CONSOLE_TITLE(value));
-            }
-        }
-
-        /// <summary>
         /// 使控制台窗口在桌面上居中显示
         /// </summary>
         public static void CenterConsoleWindowPosition()
@@ -639,11 +461,7 @@
         /// </summary>
         /// <param name="consoleOutputHandle">控制台标准输出句柄</param>
         /// <param name="paletteType">调色盘类型</param>
-        public static void SetStdConsolePalette
-        (
-            IntPtr consoleOutputHandle,
-            PaletteType paletteType = PaletteType.Modern
-        )
+        public static void SetStdConsolePalette(IntPtr consoleOutputHandle, PaletteType paletteType = PaletteType.Modern)
         {
             if (paletteType == PaletteType.Legacy)
             {
@@ -690,11 +508,7 @@
         /// </summary>
         /// <param name="consoleOutputHandle">控制台标准输出句柄</param>
         /// <param name="consoleInputHandle">控制台标准输入句柄</param>
-        public static void SetStdConsoleMode
-        (
-            IntPtr consoleOutputHandle,
-            IntPtr consoleInputHandle
-        )
+        public static void SetStdConsoleMode(IntPtr consoleOutputHandle, IntPtr consoleInputHandle)
         {
             Error.Check(KERNEL.GET_CONSOLE_MODE
             (
@@ -716,52 +530,146 @@
              ));
         }
 
-        #region OutputHandle & InputHandle
+        /// <summary>
+        /// 弹出消息框
+        /// </summary>
+        /// <param name="text">消息框文本</param>
+        /// <param name="caption">消息框标题</param>
+        /// <param name="messageBoxType">消息框类型</param>
+        /// <param name="messageBoxIcon">消息框图标</param>
+        /// <param name="messageBoxDefault">消息框默认选项</param>
+        /// <returns>用户选择</returns>
+        public static MessageBoxChoice MessageBox(string text, string caption, MessageBoxType messageBoxType, MessageBoxIcon messageBoxIcon, MessageBoxDefault messageBoxDefault)
+        {
+            uint type = (uint)messageBoxType | (uint)messageBoxIcon | (uint)messageBoxDefault;
+            Error.Check(KERNEL.MESSAGE_BOX(text, caption, type, out int choose));
+            return (MessageBoxChoice)choose;
+        }
 
         /// <summary>
-        /// 光标是否可见
+        /// 获取按键输入
         /// </summary>
-        public static bool CursorVisible
+        /// <param name="consoleKey">控制台按键</param>
+        /// <returns>是否按下</returns>
+        public static bool GetKey(ConsoleKey consoleKey)
         {
-            get
+            return KERNEL.GET_KEY((int)consoleKey);
+        }
+
+        /// <summary>
+        /// 获取控制台句柄
+        /// </summary>
+        /// <param name="handleType">句柄类型</param>
+        /// <returns>句柄</returns>
+        public static IntPtr GetConsoleHandle(HandleType handleType)
+        {
+            unchecked
             {
-                Error.Check(KERNEL.GET_CONSOLE_CURSOR_INFO(OutputHandle, out bool visible, out uint size));
-                return visible;
-            }
-            set
-            {
-                Error.Check(KERNEL.SET_CONSOLE_CURSOR_INFO(OutputHandle, value, 1));
+                Error.Check(KERNEL.GET_CONSOLE_HANDLE(out IntPtr handle, (uint)handleType));
+                return handle;
             }
         }
 
         /// <summary>
-        /// 将指定对象的文本表示形式写入控制台屏幕缓冲区
+        /// 获取控制台字体
         /// </summary>
-        /// <param name="obj">对象</param>
-        public static void Write(object obj)
+        /// <param name="consoleOutputHandle">控制台标准输出句柄</param>
+        /// <param name="bold">是否使用粗体</param>
+        /// <param name="fontWidth">字体宽度</param>
+        /// <param name="fontHeight">字体高度</param>
+        /// <param name="fontName">字体名字</param>
+        public static void GetConsoleFont(IntPtr consoleOutputHandle, out bool bold, out short fontWidth, out short fontHeight, out string fontName)
         {
-            string str = obj.ToString();
-            WriteConsole(OutputHandle, str);
+            byte[] bytes = new byte[FACE_SIZE * SIZE_OF_WCHAR];
+
+            Error.Check(KERNEL.GET_CONSOLE_FONT(consoleOutputHandle, out bold,
+                out fontWidth, out fontHeight, ref bytes[0]));
+
+            string str = Encoding.Unicode.GetString(bytes);
+            string[] strArray = str.Split('\0');
+            fontName = strArray[0];
         }
 
         /// <summary>
-        /// 将换行符写入控制台屏幕缓冲区
+        /// 设置控制台字体
         /// </summary>
-        public static void WriteLine()
+        /// <param name="consoleOutputHandle">控制台标准输出句柄</param>
+        /// <param name="bold">是否使用粗体</param>
+        /// <param name="fontWidth">字体宽度</param>
+        /// <param name="fontHeight">字体高度</param>
+        /// <param name="fontName">字体名字</param>
+        public static void SetConsoleFont(IntPtr consoleOutputHandle, bool bold, short fontWidth, short fontHeight, string fontName)
         {
-            string str = Environment.NewLine;
-            WriteConsole(OutputHandle, str);
+            Error.Check(KERNEL.SET_CONSOLE_FONT(consoleOutputHandle, bold, fontWidth, fontHeight,
+                fontName, (uint)fontName.Length));
         }
 
         /// <summary>
-        /// 将指定对象的文本表示形式加上换行符写入控制台屏幕缓冲区
+        /// 获取控制台标题
         /// </summary>
-        /// <param name="obj">对象</param>
-        public static void WriteLine(object obj)
+        /// <returns>控制台标题</returns>
+        public static string GetConsoleTitle()
         {
-            string str = obj.ToString();
-            str += Environment.NewLine;
-            WriteConsole(OutputHandle, str);
+            byte[] bytes = new byte[MAX_PATH * SIZE_OF_WCHAR];
+
+            Error.Check(KERNEL.GET_CONSOLE_TITLE(ref bytes[0], out uint length));
+
+            string title = Encoding.Unicode.GetString(bytes, 0, (int)length * SIZE_OF_WCHAR);
+
+            return title;
+        }
+
+        /// <summary>
+        /// 获取控制台特性
+        /// </summary>
+        /// <param name="consoleOutputHandle">控制台标准输出句柄</param>
+        /// <param name="foreColor">前景色</param>
+        /// <param name="backColor">背景色</param>
+        public static void GetConsoleAttribute(IntPtr consoleOutputHandle, out ConsoleColor foreColor, out ConsoleColor backColor)
+        {
+            Error.Check(KERNEL.GET_CONSOLE_ATTRIBUTE(consoleOutputHandle,
+                out ushort f, out ushort b));
+            foreColor = (ConsoleColor)f;
+            backColor = (ConsoleColor)b;
+        }
+
+        /// <summary>
+        /// 设置控制台特性
+        /// </summary>
+        /// <param name="consoleOutputHandle">控制台标准输出句柄</param>
+        /// <param name="foreColor">前景色</param>
+        /// <param name="backColor">背景色</param>
+        public static void SetConsoleAttribute(IntPtr consoleOutputHandle, ConsoleColor foreColor, ConsoleColor backColor)
+        {
+            Error.Check(KERNEL.SET_CONSOLE_ATTRIBUTE(consoleOutputHandle,
+                (ushort)foreColor, (ushort)backColor));
+        }
+
+        /// <summary>
+        /// 读取控制台
+        /// </summary>
+        /// <param name="consoleInputHandle">控制台标准输入句柄</param>
+        /// <returns>字符串</returns>
+        public static string ReadConsole(IntPtr consoleInputHandle)
+        {
+            byte[] bytes = new byte[MAX_PATH * SIZE_OF_WCHAR];
+
+            Error.Check(KERNEL.READ_CONSOLE(consoleInputHandle, ref bytes[0], MAX_PATH, out uint read));
+
+            string str = Encoding.Unicode.GetString(bytes, 0, (int)read * SIZE_OF_WCHAR);
+            //删除换行符
+            str = str.Substring(0, str.Length - Environment.NewLine.Length);
+            return str;
+        }
+
+        /// <summary>
+        /// 写入控制台
+        /// </summary>
+        /// <param name="consoleOutputHandle">控制台标准输出句柄</param>
+        /// <param name="str">字符串</param>
+        public static void WriteConsole(IntPtr consoleOutputHandle, string str)
+        {
+            Error.Check(KERNEL.WRITE_CONSOLE(consoleOutputHandle, str, (uint)str.Length));
         }
 
         /// <summary>
@@ -783,12 +691,7 @@
         /// <param name="backColors">背景色数组</param>
         /// <param name="x">横向坐标</param>
         /// <param name="y">纵向坐标</param>
-        public static void PrintColor
-        (
-            ConsoleColor[] foreColors,
-            ConsoleColor[] backColors,
-            short x, short y
-        )
+        public static void PrintColor(ConsoleColor[] foreColors, ConsoleColor[] backColors, short x, short y)
         {
             ushort[] colors = new ushort[foreColors.Length];
 
@@ -824,18 +727,307 @@
         /// <param name="width">宽度</param>
         /// <param name="x">横向坐标</param>
         /// <param name="y">纵向坐标</param>
-        public static void FillColor
-        (
-            ConsoleColor foreColor,
-            ConsoleColor backColor,
-            uint width, short x, short y
-        )
+        public static void FillColor(ConsoleColor foreColor, ConsoleColor backColor, uint width, short x, short y)
         {
             int bgc = (int)backColor * 16;
             int fgc = (int)foreColor;
             ushort color = (ushort)(fgc + bgc);
 
             Error.Check(KERNEL.FILL_CONSOLE_OUTPUT_ATTRIBUTE(OutputHandle, color, width, x, y));
+        }
+
+        #endregion
+
+        #region Console
+
+        private static bool treatControlCAsInput = false;
+
+        /// <summary>
+        /// 控制台输入代码页
+        /// </summary>
+        public static Encoding InputEncoding
+        {
+            get
+            {
+                Error.Check(KERNEL.GET_CONSOLE_CP(out uint inputCP));
+                return Encoding.GetEncoding((int)inputCP);
+            }
+            set
+            {
+                Error.Check(KERNEL.SET_CONSOLE_CP((uint)value.CodePage));
+            }
+        }
+
+        /// <summary>
+        /// 控制台输出代码页
+        /// </summary>
+        public static Encoding OutputEncoding
+        {
+            get
+            {
+                Error.Check(KERNEL.GET_CONSOLE_OUTPUT_CP(out uint inputCP));
+                return Encoding.GetEncoding((int)inputCP);
+            }
+            set
+            {
+                Error.Check(KERNEL.SET_CONSOLE_OUTPUT_CP((uint)value.CodePage));
+            }
+        }
+
+        /// <summary>
+        /// 控制台前景色
+        /// </summary>
+        public static ConsoleColor ForegroundColor
+        {
+            get
+            {
+                GetConsoleAttribute(OutputHandle, out ConsoleColor foreColor, out ConsoleColor backColor);
+                return foreColor;
+            }
+            set
+            {
+                SetConsoleAttribute(OutputHandle, value, BackgroundColor);
+            }
+        }
+
+        /// <summary>
+        /// 控制台背景色
+        /// </summary>
+        public static ConsoleColor BackgroundColor
+        {
+            get
+            {
+                GetConsoleAttribute(OutputHandle, out ConsoleColor foreColor, out ConsoleColor backColor);
+                return backColor;
+            }
+            set
+            {
+                SetConsoleAttribute(OutputHandle, ForegroundColor, value);
+            }
+        }
+
+        /// <summary>
+        /// 获取控制台窗口可以设置的最大宽度
+        /// </summary>
+        public static int LargestWindowWidth
+        {
+            get
+            {
+                Error.Check(KERNEL.GET_LARGEST_CONSOLE_WINDOW_SIZE(OutputHandle, out short width, out short height));
+                return width;
+            }
+        }
+
+        /// <summary>
+        /// 获取控制台窗口可以设置的最大高度
+        /// </summary>
+        public static int LargestWindowHeight
+        {
+            get
+            {
+                Error.Check(KERNEL.GET_LARGEST_CONSOLE_WINDOW_SIZE(OutputHandle, out short width, out short height));
+                return height;
+            }
+        }
+
+        /// <summary>
+        /// 控制台屏幕缓冲区宽度
+        /// </summary>
+        public static int BufferWidth
+        {
+            get
+            {
+                Error.Check(KERNEL.GET_CONSOLE_BUFFER_SIZE(OutputHandle, out short width, out short height));
+                return width;
+            }
+            set
+            {
+                Error.Check(KERNEL.SET_CONSOLE_BUFFER_SIZE(OutputHandle, (short)value, (short)BufferHeight));
+            }
+        }
+
+        /// <summary>
+        /// 控制台屏幕缓冲区高度
+        /// </summary>
+        public static int BufferHeight
+        {
+            get
+            {
+                Error.Check(KERNEL.GET_CONSOLE_BUFFER_SIZE(OutputHandle, out short width, out short height));
+                return height;
+            }
+            set
+            {
+                Error.Check(KERNEL.SET_CONSOLE_BUFFER_SIZE(OutputHandle, (short)BufferWidth, (short)value));
+            }
+        }
+
+        /// <summary>
+        /// 控制台窗口宽度
+        /// </summary>
+        public static int WindowWidth
+        {
+            get
+            {
+                Error.Check(KERNEL.GET_CONSOLE_WINDOW_SIZE(OutputHandle, out short width, out short height));
+                return width;
+            }
+            set
+            {
+                Error.Check(KERNEL.SET_CONSOLE_WINDOW_SIZE(OutputHandle, (short)value, (short)WindowHeight));
+            }
+        }
+
+        /// <summary>
+        /// 控制台窗口高度
+        /// </summary>
+        public static int WindowHeight
+        {
+            get
+            {
+                Error.Check(KERNEL.GET_CONSOLE_WINDOW_SIZE(OutputHandle, out short width, out short height));
+                return height;
+            }
+            set
+            {
+                Error.Check(KERNEL.SET_CONSOLE_WINDOW_SIZE(OutputHandle, (short)WindowWidth, (short)value));
+            }
+        }
+
+        /// <summary>
+        /// 控制台光标横向位置
+        /// </summary>
+        public static int CursorLeft
+        {
+            get
+            {
+                Error.Check(KERNEL.GET_CONSOLE_CURSOR_POS(OutputHandle, out short x, out short y));
+                return x;
+            }
+            set
+            {
+                Error.Check(KERNEL.SET_CONSOLE_CURSOR_POS(OutputHandle, (short)value, (short)CursorTop));
+            }
+        }
+
+        /// <summary>
+        /// 控制台光标纵向位置
+        /// </summary>
+        public static int CursorTop
+        {
+            get
+            {
+                Error.Check(KERNEL.GET_CONSOLE_CURSOR_POS(OutputHandle, out short x, out short y));
+                return y;
+            }
+            set
+            {
+                Error.Check(KERNEL.SET_CONSOLE_CURSOR_POS(OutputHandle, (short)CursorLeft, (short)value));
+            }
+        }
+
+        /// <summary>
+        /// 控制台光标尺寸
+        /// </summary>
+        public static int CursorSize
+        {
+            get
+            {
+                Error.Check(KERNEL.GET_CONSOLE_CURSOR_INFO(OutputHandle, out bool visible, out uint size));
+                return (int)size;
+            }
+            set
+            {
+                Error.Check(KERNEL.SET_CONSOLE_CURSOR_INFO(OutputHandle, CursorVisible, (uint)value));
+            }
+        }
+
+        /// <summary>
+        /// 控制台光标是否可见
+        /// </summary>
+        public static bool CursorVisible
+        {
+            get
+            {
+                Error.Check(KERNEL.GET_CONSOLE_CURSOR_INFO(OutputHandle, out bool visible, out uint size));
+                return visible;
+            }
+            set
+            {
+                Error.Check(KERNEL.SET_CONSOLE_CURSOR_INFO(OutputHandle, value, (uint)CursorSize));
+            }
+        }
+
+        /// <summary>
+        /// 将Ctrl+C视为普通输入
+        /// </summary>
+        public static bool TreatControlCAsInput
+        {
+            get
+            {
+                return treatControlCAsInput;
+            }
+            set
+            {
+                treatControlCAsInput = value;
+                KERNEL.SET_CONSOLE_CTRL_HANDLER(value);
+            }
+        }
+
+        /// <summary>
+        /// 获取或设置要显示在控制台标题栏中的标题
+        /// </summary>
+        public static string Title
+        {
+            get
+            {
+                return GetConsoleTitle();
+            }
+            set
+            {
+                Error.Check(KERNEL.SET_CONSOLE_TITLE(value));
+            }
+        }
+
+        /// <summary>
+        /// 设置控制台屏幕缓冲区窗口大小
+        /// </summary>
+        /// <param name="width">宽度</param>
+        /// <param name="height">高度</param>
+        public static void SetWindowSize(int width, int height)
+        {
+            Error.Check(KERNEL.SET_CONSOLE_WINDOW_SIZE(OutputHandle, (short)width, (short)height));
+        }
+
+        /// <summary>
+        /// 设置控制台屏幕缓冲区大小
+        /// </summary>
+        /// <param name="width">宽度</param>
+        /// <param name="height">高度</param>
+        public static void SetBufferSize(int width, int height)
+        {
+            Error.Check(KERNEL.SET_CONSOLE_BUFFER_SIZE(OutputHandle, (short)width, (short)height));
+        }
+
+        /// <summary>
+        /// 设置光标坐标
+        /// </summary>
+        /// <param name="left">横向坐标</param>
+        /// <param name="top">纵向坐标</param>
+        public static void SetCursorPosition(int left, int top)
+        {
+            Error.Check(KERNEL.SET_CONSOLE_CURSOR_POS(OutputHandle, (short)left, (short)top));
+        }
+
+        /// <summary>
+        /// 获取用户按下的下一个字符或功能键, 按下的键可以选择显示在控制台窗口中
+        /// </summary>
+        /// <param name="intercept">确定是否在控制台窗口中显示按下的键</param>
+        /// <returns>控制台按键信息</returns>
+        public static ConsoleKeyInfo ReadKey(bool intercept = true)
+        {
+            ConsoleKeyInfo consoleKeyInfo = Console.ReadKey(intercept);
+            return consoleKeyInfo;
         }
 
         /// <summary>
@@ -848,14 +1040,42 @@
         }
 
         /// <summary>
+        /// 将指定对象的文本表示形式写入控制台屏幕缓冲区
+        /// </summary>
+        /// <param name="obj">对象</param>
+        public static void Write(object obj)
+        {
+            string str = obj.ToString();
+            WriteConsole(OutputHandle, str);
+        }
+
+        /// <summary>
+        /// 将换行符写入控制台屏幕缓冲区
+        /// </summary>
+        public static void WriteLine()
+        {
+            string str = Environment.NewLine;
+            WriteConsole(OutputHandle, str);
+        }
+
+        /// <summary>
+        /// 将指定对象的文本表示形式加上换行符写入控制台屏幕缓冲区
+        /// </summary>
+        /// <param name="obj">对象</param>
+        public static void WriteLine(object obj)
+        {
+            string str = obj.ToString();
+            str += Environment.NewLine;
+            WriteConsole(OutputHandle, str);
+        }
+
+        /// <summary>
         /// 清空默认屏幕屏幕缓冲区
         /// </summary>
         public static void Clear()
         {
             Error.Check(KERNEL.GET_CONSOLE_BUFFER_SIZE(OutputHandle, out short width, out short height));
-
             Error.Check(KERNEL.FILL_CONSOLE_OUTPUT_ATTRIBUTE(OutputHandle, 0x07, (uint)(width * height), 0, 0));
-
             Error.Check(KERNEL.FILL_CONSOLE_OUTPUT_CHAR(OutputHandle, ' ', (uint)(width * height), 0, 0));
         }
 

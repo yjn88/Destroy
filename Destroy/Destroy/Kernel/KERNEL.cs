@@ -215,7 +215,7 @@
         public static extern bool SET_CONSOLE_BUFFER_SIZE(IntPtr hConsoleOutput, short width, short height);
 
         /// <summary>
-        /// 获取控制台屏幕缓冲区窗口大小
+        /// 获取控制台窗口大小
         /// </summary>
         /// <param name="hConsoleOutput">控制台标准输出句柄</param>
         /// <param name="width">宽度</param>
@@ -225,7 +225,7 @@
         public static extern bool GET_CONSOLE_WINDOW_SIZE(IntPtr hConsoleOutput, out short width, out short height);
 
         /// <summary>
-        /// 设置控制台屏幕缓冲区窗口大小
+        /// 设置控制台窗口大小
         /// </summary>
         /// <param name="hConsoleOutput">控制台标准输出句柄</param>
         /// <param name="width">宽度</param>
