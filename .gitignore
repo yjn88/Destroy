@@ -38,8 +38,6 @@
 
 # For C#
 
-TestProject/
-
 # Build and Object Folders  
 bin/  
 obj/  
