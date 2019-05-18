@@ -1,9 +1,9 @@
 ﻿namespace Destroy
 {
+    using Destroy.Kernel;
     using System;
     using System.Text;
     using System.Threading;
-    using Destroy.Kernel;
 
     /// <summary>
     /// 运行时激活
@@ -29,30 +29,61 @@
         /// <param name="height">高度</param>
         /// <param name="title">标题</param>
         /// <returns>是否成功</returns>
-        public static void Construct(ConsoleType consoleType, bool maximum, short width, short height, string title = "CONSOLE")
+        public static void Construct(ConsoleType consoleType, bool maximum, short width, short height, string title = "Destroy")
         {
             //以下2方法必须在设置字体前使用:
             //设置标准调色盘
             CONSOLE.SetStdConsolePalette(CONSOLE.OutputHandle);
             //设置标准控制台模式
             CONSOLE.SetStdConsoleMode(CONSOLE.OutputHandle, CONSOLE.InputHandle);
-            //65001 = UTF8
-            KERNEL.SET_CONSOLE_CP((uint)Encoding.UTF8.CodePage);
-            KERNEL.SET_CONSOLE_OUTPUT_CP((uint)Encoding.UTF8.CodePage);
+            CONSOLE.InputEncoding = Encoding.UTF8;
+            CONSOLE.OutputEncoding = Encoding.UTF8;
             CONSOLE.Title = title;
 
             switch (consoleType)
             {
                 case ConsoleType.Default:
-                    SetFontAndWindow(width, height, maximum, "Consolas", 16, 16);
+                    SetFontAndWindow("Consolas", false, 16, 16, maximum, width, height);
                     break;
                 case ConsoleType.Pixel:
-                    SetFontAndWindow(width, height, maximum, "Terminal", 8, 8);
+                    SetFontAndWindow("Terminal", false, 8, 8, maximum, width, height);
                     break;
                 case ConsoleType.HignQuality:
-                    SetFontAndWindow(width, height, maximum, "MS Gothic", 1, 1);
+                    SetFontAndWindow("MS Gothic", false, 1, 1, maximum, width, height);
                     break;
             }
+
+            if (maximum)
+            {
+                KERNEL.SET_WINDOW_POS(0, 0);
+            }
+        }
+
+        /// <summary>
+        /// 构建控制台
+        /// </summary>
+        /// <param name="fontName">字体名字</param>
+        /// <param name="bold">字体粗细</param>
+        /// <param name="fontWidth">字体宽度</param>
+        /// <param name="fontHeight">字体高度</param>
+        /// <param name="maximum">最大化</param>
+        /// <param name="width">宽度</param>
+        /// <param name="height">高度</param>
+        /// <param name="title">标题</param>
+        public static void Construct(string fontName, bool bold, short fontWidth, short fontHeight,
+            bool maximum, short width, short height, string title = "Destroy")
+        {
+            //以下2方法必须在设置字体前使用:
+            //设置标准调色盘
+            CONSOLE.SetStdConsolePalette(CONSOLE.OutputHandle);
+            //设置标准控制台模式
+            CONSOLE.SetStdConsoleMode(CONSOLE.OutputHandle, CONSOLE.InputHandle);
+            CONSOLE.InputEncoding = Encoding.UTF8;
+            CONSOLE.OutputEncoding = Encoding.UTF8;
+            CONSOLE.Title = title;
+
+            SetFontAndWindow(fontName, bold, fontWidth, fontHeight, maximum, width, height);
+
             if (maximum)
             {
                 KERNEL.SET_WINDOW_POS(0, 0);
@@ -113,9 +144,9 @@
         /// <summary>
         /// Warning:该方法不稳定, 出现错误时需要手动设置(屏幕缓冲区, 窗口大小, 字体大小等)
         /// </summary>
-        private static void SetFontAndWindow(short width, short height, bool maximum, string fontName, short fontWidth, short fontHeight)
+        private static void SetFontAndWindow(string fontName, bool bold, short fontWidth, short fontHeight, bool maximum, short width, short height)
         {
-            CONSOLE.SetConsoleFont(CONSOLE.OutputHandle, false, fontWidth, fontHeight, fontName);
+            CONSOLE.SetConsoleFont(CONSOLE.OutputHandle, bold, fontWidth, fontHeight, fontName);
 
             KERNEL.GET_LARGEST_CONSOLE_WINDOW_SIZE(CONSOLE.OutputHandle,
                     out short largestWidth, out short largestHeight);
