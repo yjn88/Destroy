@@ -117,6 +117,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="destroy.hpp" />
     <ClInclude Include="kernel.h" />
   </ItemGroup>
   <ItemGroup>
