@@ -40,12 +40,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System" />
-  </ItemGroup>
-  <ItemGroup />
-  <ItemGroup>
+    <Compile Include="Base\Colour.cs" />
     <Compile Include="Base\Debug.cs" />
     <Compile Include="Base\Enums.cs" />
+    <Compile Include="Base\Error.cs" />
     <Compile Include="Base\Graphics.cs" />
     <Compile Include="Base\Input.cs" />
     <Compile Include="Base\IPlayable.cs" />
@@ -65,6 +63,9 @@
     <Compile Include="UI\Button.cs" />
     <Compile Include="UI\ListBox.cs" />
     <Compile Include="UI\UIObject.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

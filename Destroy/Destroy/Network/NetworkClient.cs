@@ -38,7 +38,7 @@
             client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             callbackDict = new Dictionary<uint, GetServerDataCallBack>();
             messagesToBeSend = new Queue<byte[]>();
-            this.OnConnected = onConnected;
+            OnConnected = onConnected;
         }
 
         /// <summary>

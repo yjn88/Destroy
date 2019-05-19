@@ -6,14 +6,6 @@
     using System.Threading;
 
     /// <summary>
-    /// 运行时激活
-    /// </summary>
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
-    public class EnableOnRuntime : Attribute
-    {
-    }
-
-    /// <summary>
     /// 运行时引擎, 接管整个游戏的生命周期 <see langword="static"/>
     /// </summary>
     public static class RuntimeEngine

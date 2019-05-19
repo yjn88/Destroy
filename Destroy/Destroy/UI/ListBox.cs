@@ -1,6 +1,5 @@
 ﻿namespace Destroy.UI
 {
-    using Destroy.Kernel;
     using System;
     using System.Collections.Generic;
     using System.Text;
@@ -8,7 +7,7 @@
     /// <summary>
     /// 列表(适用于双宽模式)
     /// </summary>
-    public class ListBox:UIObject
+    public class ListBox : UIObject
     {
         /// <summary>
         /// 宽度
@@ -36,7 +35,7 @@
         /// <param name="backColor">背景色</param>
         /// <param name="depth">深度</param>
         public ListBox(Graphics graphics, int width, int height,
-            Vector2 position, ConsoleColor foreColor, ConsoleColor backColor, uint depth = 0)
+            Vector2 position, Colour foreColor, Colour backColor, uint depth = 0)
         {
             if (graphics.CharWidth != CharWidth.Double)
             {

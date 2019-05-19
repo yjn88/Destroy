@@ -47,8 +47,8 @@
             messagesToBeSend = new Queue<ClientMessage>();
             accept = true;
             acceptAsync = null;
-            this.OnConnected = onConnected;
-            this.OnDisconnected = onDisconnected;
+            OnConnected = onConnected;
+            OnDisconnected = onDisconnected;
         }
 
         /// <summary>

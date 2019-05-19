@@ -1,7 +1,6 @@
 ﻿namespace Destroy
 {
     using Destroy.Kernel;
-    using System;
     using System.Collections.Generic;
 
     /// <summary>
@@ -54,7 +53,7 @@
         /// </summary>
         /// <param name="foreColor">前景色</param>
         /// <param name="backColor">背景色</param>
-        public void SetColor(ConsoleColor foreColor, ConsoleColor backColor)
+        public void SetColor(Colour foreColor, Colour backColor)
         {
             foreach (GraphicGrid item in GraphicGrids)
             {
@@ -199,9 +198,15 @@
         /// </summary>
         public readonly CharWidth CharWidth;
 
-        private readonly char defaultChar;
+        /// <summary>
+        /// 默认字符
+        /// </summary>
+        public char DefaultChar;
 
-        private readonly ConsoleColor defaultForeColor, defaultBackColor;
+        /// <summary>
+        /// 默认前进色与背景色
+        /// </summary>
+        public Colour DefaultForeColor, DefaultBackColor;
 
         private List<GraphicGrid> grids;
 
@@ -213,25 +218,16 @@
         /// <param name="width">宽度</param>
         /// <param name="height">高度</param>
         /// <param name="charWidth">字符宽度</param>
-        /// <param name="defaultChar">默认字符</param>
-        /// <param name="defaultForeColor">默认前景色</param>
-        /// <param name="defaultBackColor">默认背景色</param>
-        public Graphics
-        (
-            short width, short height, CharWidth charWidth,
-            char defaultChar = '\0',
-            ConsoleColor defaultForeColor = ConsoleColor.Gray,
-            ConsoleColor defaultBackColor = ConsoleColor.Black
-        )
+        public Graphics(short width, short height, CharWidth charWidth)
         {
             Width = width;
             Height = height;
             CharWidth = charWidth;
             grids = new List<GraphicGrid>();
             infos = new CharInfo[width * (int)charWidth * height];
-            this.defaultChar = defaultChar;
-            this.defaultForeColor = defaultForeColor;
-            this.defaultBackColor = defaultBackColor;
+            DefaultChar = '\0';
+            DefaultForeColor = Colour.Gray;
+            DefaultBackColor = Colour.Black;
         }
 
         /// <summary>
@@ -272,7 +268,7 @@
         /// <param name="backColor">背景色</param>
         /// <param name="depth">深度</param>
         /// <returns>图形网格集合</returns>
-        public List<GraphicGrid> CreatGridByString(Vector2 position, string str, ConsoleColor foreColor, ConsoleColor backColor, uint depth = 0)
+        public List<GraphicGrid> CreatGridByString(Vector2 position, string str, Colour foreColor, Colour backColor, uint depth = 0)
         {
             List<string> strGrids = DivideStringToGrids(str);
             List<GraphicGrid> graphicGrids = new List<GraphicGrid>();
@@ -306,7 +302,7 @@
         /// <param name="backColors">背景色</param>
         /// <param name="depth">深度</param>
         /// <returns>图形网格集合</returns>
-        public List<GraphicGrid> CreatGridByString(Vector2 position, string str, ConsoleColor[] foreColors, ConsoleColor[] backColors, uint depth = 0)
+        public List<GraphicGrid> CreatGridByString(Vector2 position, string str, Colour[] foreColors, Colour[] backColors, uint depth = 0)
         {
             List<string> strGrids = DivideStringToGrids(str);
             List<GraphicGrid> graphicGrids = new List<GraphicGrid>();
@@ -317,8 +313,8 @@
                 Vector2 pos = new Vector2(position.X + i, position.Y);
 
                 string item = strGrids[i];
-                ConsoleColor foreColor = foreColors[i];
-                ConsoleColor backColor = backColors[i];
+                Colour foreColor = foreColors[i];
+                Colour backColor = backColors[i];
 
                 if (item.Length == 1)
                 {
@@ -343,7 +339,7 @@
         /// <param name="backColor">背景色</param>
         /// <param name="depth">深度</param>
         /// <returns>图形网格集合</returns>
-        public List<GraphicGrid> CreatGridByStrings(Vector2 position, string[] strs, ConsoleColor foreColor, ConsoleColor backColor, uint depth = 0)
+        public List<GraphicGrid> CreatGridByStrings(Vector2 position, string[] strs, Colour foreColor, Colour backColor, uint depth = 0)
         {
             List<GraphicGrid> graphicGrids = new List<GraphicGrid>();
             for (int i = 0; i < strs.Length; i++)
@@ -364,14 +360,14 @@
         /// <param name="backColors">背景色数组</param>
         /// <param name="depth">深度</param>
         /// <returns>图形网格集合</returns>
-        public List<GraphicGrid> CreatGridByStrings(Vector2 position, string[] strs, ConsoleColor[] foreColors, ConsoleColor[] backColors, uint depth = 0)
+        public List<GraphicGrid> CreatGridByStrings(Vector2 position, string[] strs, Colour[] foreColors, Colour[] backColors, uint depth = 0)
         {
             List<GraphicGrid> graphicGrids = new List<GraphicGrid>();
             for (int i = 0; i < strs.Length; i++)
             {
                 Vector2 pos = new Vector2(position.X, position.Y + i);
-                ConsoleColor foreColor = foreColors[i];
-                ConsoleColor backColor = backColors[i];
+                Colour foreColor = foreColors[i];
+                Colour backColor = backColors[i];
                 List<GraphicGrid> grids = CreatGridByString(pos, strs[i], foreColor, backColor, depth);
                 graphicGrids.AddRange(grids);
             }
@@ -387,7 +383,7 @@
         /// <param name="backColor">背景色</param>
         /// <param name="depth">深度</param>
         /// <returns>图形网格集合</returns>
-        public List<GraphicGrid> CreatGridByArray2D(Vector2 position, string[,] strs, ConsoleColor foreColor, ConsoleColor backColor, uint depth = 0)
+        public List<GraphicGrid> CreatGridByArray2D(Vector2 position, string[,] strs, Colour foreColor, Colour backColor, uint depth = 0)
         {
             List<GraphicGrid> graphicGrids = new List<GraphicGrid>();
             for (int i = 0; i < strs.GetLength(0); i++)
@@ -427,7 +423,7 @@
         /// <param name="backColors">背景色数组</param>
         /// <param name="depth">深度</param>
         /// <returns>图形网格集合</returns>
-        public List<GraphicGrid> CreatGridByArray2D(Vector2 position, string[,] strs, ConsoleColor[,] foreColors, ConsoleColor[,] backColors, uint depth = 0)
+        public List<GraphicGrid> CreatGridByArray2D(Vector2 position, string[,] strs, Colour[,] foreColors, Colour[,] backColors, uint depth = 0)
         {
             List<GraphicGrid> graphicGrids = new List<GraphicGrid>();
             for (int i = 0; i < strs.GetLength(0); i++)
@@ -437,8 +433,8 @@
                     GraphicGrid graphicGrid = null;
                     Vector2 pos = new Vector2(position.X + j, position.Y + i);
                     string str = strs[i, j];
-                    ConsoleColor foreColor = foreColors[i, j];
-                    ConsoleColor backColor = backColors[i, j];
+                    Colour foreColor = foreColors[i, j];
+                    Colour backColor = backColors[i, j];
 
                     if (str.Length == 1)
                     {
@@ -474,7 +470,7 @@
         (
             Vector2 position, Vector2 size,
             string str,
-            ConsoleColor foreColor, ConsoleColor backColor,
+            Colour foreColor, Colour backColor,
             uint depth = 0
         )
         {
@@ -532,8 +528,8 @@
         public void CreatRectangle
         (
             Vector2 position, Vector2 size, Vector2 borderSize,
-            string inside, ConsoleColor insideForeColor, ConsoleColor insideBackColor,
-            string border, ConsoleColor borderForeColor, ConsoleColor borderBackColor,
+            string inside, Colour insideForeColor, Colour insideBackColor,
+            string border, Colour borderForeColor, Colour borderBackColor,
             out List<GraphicGrid> insideGraphicGrids,
             out List<GraphicGrid> borderGraphicGrids,
             uint depth = 0
@@ -657,7 +653,7 @@
         /// <param name="str">字符串</param>
         /// <param name="foreColor">前景色</param>
         /// <param name="backColor">背景色</param>
-        public void SetGridByString(Vector2 position, string str, ConsoleColor foreColor, ConsoleColor backColor)
+        public void SetGridByString(Vector2 position, string str, Colour foreColor, Colour backColor)
         {
             List<string> strGrids = DivideStringToGrids(str);
 
@@ -686,7 +682,7 @@
         /// <param name="str">字符串</param>
         /// <param name="foreColors">前景色</param>
         /// <param name="backColors">背景色</param>
-        public void SetGridByString(Vector2 position, string str, ConsoleColor[] foreColors, ConsoleColor[] backColors)
+        public void SetGridByString(Vector2 position, string str, Colour[] foreColors, Colour[] backColors)
         {
             List<string> strGrids = DivideStringToGrids(str);
 
@@ -694,8 +690,8 @@
             {
                 string item = strGrids[i];
                 Vector2 pos = new Vector2(position.X + i, position.Y);
-                ConsoleColor foreColor = foreColors[i];
-                ConsoleColor backColor = backColors[i];
+                Colour foreColor = foreColors[i];
+                Colour backColor = backColors[i];
 
                 if (item.Length == 1)
                 {
@@ -717,7 +713,7 @@
         /// <param name="strs">字符串</param>
         /// <param name="foreColor">前景色</param>
         /// <param name="backColor">背景色</param>
-        public void SetGridByStrings(Vector2 position, string[] strs, ConsoleColor foreColor, ConsoleColor backColor)
+        public void SetGridByStrings(Vector2 position, string[] strs, Colour foreColor, Colour backColor)
         {
             for (int i = 0; i < strs.Length; i++)
             {
@@ -733,13 +729,13 @@
         /// <param name="strs">字符串</param>
         /// <param name="foreColors">前景色</param>
         /// <param name="backColors">背景色</param>
-        public void SetGridByStrings(Vector2 position, string[] strs, ConsoleColor[] foreColors, ConsoleColor[] backColors)
+        public void SetGridByStrings(Vector2 position, string[] strs, Colour[] foreColors, Colour[] backColors)
         {
             for (int i = 0; i < strs.Length; i++)
             {
                 Vector2 pos = new Vector2(position.X, position.Y + i);
-                ConsoleColor foreColor = foreColors[i];
-                ConsoleColor backColor = backColors[i];
+                Colour foreColor = foreColors[i];
+                Colour backColor = backColors[i];
                 SetGridByString(pos, strs[i], foreColor, backColor);
             }
         }
@@ -751,7 +747,7 @@
         /// <param name="strs">字符串</param>
         /// <param name="foreColor">前景色</param>
         /// <param name="backColor">背景色</param>
-        public void SetGridByArray2D(Vector2 position, string[,] strs, ConsoleColor foreColor, ConsoleColor backColor)
+        public void SetGridByArray2D(Vector2 position, string[,] strs, Colour foreColor, Colour backColor)
         {
             for (int i = 0; i < strs.GetLength(0); i++)
             {
@@ -781,7 +777,7 @@
         /// <param name="strs">字符串</param>
         /// <param name="foreColors">前景色</param>
         /// <param name="backColors">背景色</param>
-        public void SetGridByArray2D(Vector2 position, string[,] strs, ConsoleColor[,] foreColors, ConsoleColor[,] backColors)
+        public void SetGridByArray2D(Vector2 position, string[,] strs, Colour[,] foreColors, Colour[,] backColors)
         {
             for (int i = 0; i < strs.GetLength(0); i++)
             {
@@ -789,8 +785,8 @@
                 {
                     Vector2 pos = new Vector2(position.X + j, position.Y + i);
                     string str = strs[i, j];
-                    ConsoleColor foreColor = foreColors[i, j];
-                    ConsoleColor backColor = backColors[i, j];
+                    Colour foreColor = foreColors[i, j];
+                    Colour backColor = backColors[i, j];
 
                     if (str.Length == 1)
                     {
@@ -814,7 +810,7 @@
         /// <param name="str">填充字符串</param>
         /// <param name="foreColor">前景色</param>
         /// <param name="backColor">背景色</param>
-        public void SetRectangle(Vector2 position, Vector2 size, string str, ConsoleColor foreColor, ConsoleColor backColor)
+        public void SetRectangle(Vector2 position, Vector2 size, string str, Colour foreColor, Colour backColor)
         {
             for (int i = 0; i < size.Y; i++)
             {
@@ -851,8 +847,8 @@
         public void SetRectangle
         (
             Vector2 position, Vector2 size, Vector2 borderSize,
-            string inside, ConsoleColor insideForeColor, ConsoleColor insideBackColor,
-            string border, ConsoleColor borderForeColor, ConsoleColor borderBackColor
+            string inside, Colour insideForeColor, Colour insideBackColor,
+            string border, Colour borderForeColor, Colour borderBackColor
         )
         {
             for (int i = 0; i < size.Y; i++)
@@ -954,7 +950,7 @@
         {
             for (int i = 0; i < infos.Length; i++)
             {
-                infos[i] = new CharInfo(defaultChar, defaultForeColor, defaultBackColor);
+                infos[i] = new CharInfo(DefaultChar, DefaultForeColor, DefaultBackColor);
             }
         }
 

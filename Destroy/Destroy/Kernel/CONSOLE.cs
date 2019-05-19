@@ -5,209 +5,6 @@
     using System.Text;
 
     /// <summary>
-    /// 不稳定方法
-    /// </summary>
-    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
-    public class Unstable : Attribute
-    {
-        /// <summary>
-        /// 消息
-        /// </summary>
-        public string Message { get; private set; }
-
-        /// <summary>
-        /// 构造方法
-        /// </summary>
-        /// <param name="message">消息</param>
-        public Unstable(string message = "")
-        {
-            Message = message;
-        }
-    }
-
-    /// <summary>
-    /// 错误异常类
-    /// </summary>
-    public class Error : Exception
-    {
-        /// <summary>
-        /// 构造方法
-        /// </summary>
-        /// <param name="message">错误消息</param>
-        public Error(string message = nameof(Error)) : base(message)
-        {
-        }
-
-        /// <summary>
-        /// 抛出错误
-        /// </summary>
-        /// <param name="message">错误消息</param>
-        public static void Pop(string message = nameof(Error))
-        {
-            throw new Error(message);
-        }
-
-        /// <summary>
-        /// 检查是否错误
-        /// </summary>
-        /// <param name="result">方法返回值</param>
-        /// <param name="message">错误消息</param>
-        public static void Check(bool result, string message = nameof(Error))
-        {
-            if (!result)
-            {
-                Pop(message);
-            }
-        }
-    }
-
-    /// <summary>
-    /// 控制台标准句柄类型
-    /// </summary>
-    public enum HandleType
-    {
-        /// <summary>
-        /// 输入
-        /// </summary>
-        Input = -10,
-
-        /// <summary>
-        /// 输出
-        /// </summary>
-        Output = -11,
-
-        /// <summary>
-        /// 错误
-        /// </summary>
-        Error = -12,
-    }
-
-    /// <summary>
-    /// 调色盘类型
-    /// </summary>
-    public enum PaletteType
-    {
-        /// <summary>
-        /// 遗产调色盘
-        /// </summary>
-        Legacy,
-
-        /// <summary>
-        /// 现代调色盘
-        /// </summary>
-        Modern
-    }
-
-    /// <summary>
-    /// 消息框类型
-    /// </summary>
-    public enum MessageBoxType
-    {
-        /// <summary>
-        /// 显示OK(默认值)
-        /// </summary>
-        OK = (int)0x00000000L,
-
-        /// <summary>
-        /// 显示OK与取消
-        /// </summary>
-        OKCancel = (int)0x00000001L,
-
-        /// <summary>
-        /// 显示重试与取消
-        /// </summary>
-        RetryCancel = (int)0x00000005L,
-
-        /// <summary>
-        /// 显示是与否
-        /// </summary>
-        YesNo = (int)0x00000004L,
-
-        /// <summary>
-        /// 显示是与否与取消
-        /// </summary>
-        YesNoCancel = (int)0x00000003L,
-    }
-
-    /// <summary>
-    /// 消息框图标
-    /// </summary>
-    public enum MessageBoxIcon
-    {
-        /// <summary>
-        /// 信息图标
-        /// </summary>
-        IconInformation = (int)0x00000040L,
-
-        /// <summary>
-        /// 警告图标
-        /// </summary>
-        IconWarning = (int)0x00000030L,
-
-        /// <summary>
-        /// 错误图标
-        /// </summary>
-        IconError = (int)0x00000010L,
-    }
-
-    /// <summary>
-    /// 消息框默认按钮
-    /// </summary>
-    public enum MessageBoxDefault
-    {
-        /// <summary>
-        /// 第一个按钮是默认按钮(默认值)
-        /// </summary>
-        DefaultButton1 = (int)0x00000000L,
-
-        /// <summary>
-        /// 第二个按钮是默认按钮
-        /// </summary>
-        DefaultButton2 = (int)0x00000100L,
-
-        /// <summary>
-        /// 第三个按钮是默认按钮
-        /// </summary>
-        DefaultButton3 = (int)0x00000200L,
-
-        /// <summary>
-        /// 第四个按钮是默认按钮
-        /// </summary>
-        DefaultButton4 = (int)0x00000300L,
-    }
-
-    /// <summary>
-    /// 消息框选择
-    /// </summary>
-    public enum MessageBoxChoice
-    {
-        /// <summary>
-        /// OK按钮被选中
-        /// </summary>
-        OK = 1,
-
-        /// <summary>
-        /// Cancel按钮被选中
-        /// </summary>
-        Cancel = 2,
-
-        /// <summary>
-        /// Retry按钮被选中
-        /// </summary>
-        Retry = 4,
-
-        /// <summary>
-        /// Yes按钮被选中
-        /// </summary>
-        Yes = 6,
-
-        /// <summary>
-        /// No按钮被选中
-        /// </summary>
-        No = 7,
-    }
-
-    /// <summary>
     /// 字符信息
     /// </summary>
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
@@ -229,41 +26,41 @@
         /// <param name="unicodeChar">Unicode字符</param>
         /// <param name="foreColor">前景色</param>
         /// <param name="backColor">背景色</param>
-        public CharInfo(char unicodeChar, ConsoleColor foreColor, ConsoleColor backColor)
+        public CharInfo(char unicodeChar, Colour foreColor, Colour backColor)
         {
             UnicodeChar = unicodeChar;
-            Attributes = (ushort)((int)backColor * 16 + (int)foreColor);
+            Attributes = Colour.ColourToUshort(foreColor, backColor);
         }
 
         /// <summary>
         /// 前景色
         /// </summary>
-        public ConsoleColor ForeColor
+        public Colour ForeColor
         {
             get
             {
-                ConsoleColor foreColor = (ConsoleColor)(Attributes & 0x000F);
+                Colour.UshortToColour(Attributes, out Colour foreColor, out Colour backColor);
                 return foreColor;
             }
             set
             {
-                Attributes = (ushort)((int)BackColor * 16 + (int)value);
+                Attributes = Colour.ColourToUshort(value, BackColor);
             }
         }
 
         /// <summary>
         /// 背景色
         /// </summary>
-        public ConsoleColor BackColor
+        public Colour BackColor
         {
             get
             {
-                ConsoleColor backColor = (ConsoleColor)((Attributes & 0x00F0) / 16);
+                Colour.UshortToColour(Attributes, out Colour foreColor, out Colour backColor);
                 return backColor;
             }
             set
             {
-                Attributes = (ushort)((int)value * 16 + (int)ForeColor);
+                Attributes = Colour.ColourToUshort(ForeColor, value);
             }
         }
 
@@ -272,10 +69,9 @@
         /// </summary>
         /// <param name="foreColor">前景色</param>
         /// <param name="backColor">背景色</param>
-        public void GetColor(out ConsoleColor foreColor, out ConsoleColor backColor)
+        public void GetColor(out Colour foreColor, out Colour backColor)
         {
-            foreColor = (ConsoleColor)(Attributes & 0x000F);
-            backColor = (ConsoleColor)((Attributes & 0x00F0) / 16);
+            Colour.UshortToColour(Attributes, out foreColor, out backColor);
         }
 
         /// <summary>
@@ -283,9 +79,9 @@
         /// </summary>
         /// <param name="foreColor">前景色</param>
         /// <param name="backColor">背景色</param>
-        public void SetColor(ConsoleColor foreColor, ConsoleColor backColor)
+        public void SetColor(Colour foreColor, Colour backColor)
         {
-            Attributes = (ushort)((int)backColor * 16 + (int)foreColor);
+            Attributes = Colour.ColourToUshort(foreColor, backColor);
         }
     }
 
@@ -625,12 +421,12 @@
         /// <param name="consoleOutputHandle">控制台标准输出句柄</param>
         /// <param name="foreColor">前景色</param>
         /// <param name="backColor">背景色</param>
-        public static void GetConsoleAttribute(IntPtr consoleOutputHandle, out ConsoleColor foreColor, out ConsoleColor backColor)
+        public static void GetConsoleAttribute(IntPtr consoleOutputHandle, out Colour foreColor, out Colour backColor)
         {
             Error.Check(KERNEL.GET_CONSOLE_ATTRIBUTE(consoleOutputHandle,
                 out ushort f, out ushort b));
-            foreColor = (ConsoleColor)f;
-            backColor = (ConsoleColor)b;
+            foreColor = (Colour)f;
+            backColor = (Colour)b;
         }
 
         /// <summary>
@@ -639,7 +435,7 @@
         /// <param name="consoleOutputHandle">控制台标准输出句柄</param>
         /// <param name="foreColor">前景色</param>
         /// <param name="backColor">背景色</param>
-        public static void SetConsoleAttribute(IntPtr consoleOutputHandle, ConsoleColor foreColor, ConsoleColor backColor)
+        public static void SetConsoleAttribute(IntPtr consoleOutputHandle, Colour foreColor, Colour backColor)
         {
             Error.Check(KERNEL.SET_CONSOLE_ATTRIBUTE(consoleOutputHandle,
                 (ushort)foreColor, (ushort)backColor));
@@ -691,16 +487,13 @@
         /// <param name="backColors">背景色数组</param>
         /// <param name="x">横向坐标</param>
         /// <param name="y">纵向坐标</param>
-        public static void PrintColor(ConsoleColor[] foreColors, ConsoleColor[] backColors, short x, short y)
+        public static void PrintColor(Colour[] foreColors, Colour[] backColors, short x, short y)
         {
             ushort[] colors = new ushort[foreColors.Length];
 
             for (int i = 0; i < colors.Length; i++)
             {
-                int bgc = (int)backColors[i] * 16;
-                int fgc = (int)foreColors[i];
-
-                colors[i] = (ushort)(fgc + bgc);
+                colors[i] = Colour.ColourToUshort(foreColors[i], backColors[i]);
             }
 
             Error.Check(KERNEL.WRITE_CONSOLE_OUTPUT_ATTRIBUTE(OutputHandle, colors,
@@ -727,12 +520,9 @@
         /// <param name="width">宽度</param>
         /// <param name="x">横向坐标</param>
         /// <param name="y">纵向坐标</param>
-        public static void FillColor(ConsoleColor foreColor, ConsoleColor backColor, uint width, short x, short y)
+        public static void FillColor(Colour foreColor, Colour backColor, uint width, short x, short y)
         {
-            int bgc = (int)backColor * 16;
-            int fgc = (int)foreColor;
-            ushort color = (ushort)(fgc + bgc);
-
+            ushort color = Colour.ColourToUshort(foreColor, backColor);
             Error.Check(KERNEL.FILL_CONSOLE_OUTPUT_ATTRIBUTE(OutputHandle, color, width, x, y));
         }
 
@@ -777,11 +567,11 @@
         /// <summary>
         /// 控制台前景色
         /// </summary>
-        public static ConsoleColor ForegroundColor
+        public static Colour ForegroundColor
         {
             get
             {
-                GetConsoleAttribute(OutputHandle, out ConsoleColor foreColor, out ConsoleColor backColor);
+                GetConsoleAttribute(OutputHandle, out Colour foreColor, out Colour backColor);
                 return foreColor;
             }
             set
@@ -793,11 +583,11 @@
         /// <summary>
         /// 控制台背景色
         /// </summary>
-        public static ConsoleColor BackgroundColor
+        public static Colour BackgroundColor
         {
             get
             {
-                GetConsoleAttribute(OutputHandle, out ConsoleColor foreColor, out ConsoleColor backColor);
+                GetConsoleAttribute(OutputHandle, out Colour foreColor, out Colour backColor);
                 return backColor;
             }
             set
@@ -1092,7 +882,7 @@
         /// </summary>
         public static void ResetColor()
         {
-            SetConsoleAttribute(OutputHandle, ConsoleColor.Gray, ConsoleColor.Black);
+            SetConsoleAttribute(OutputHandle, Colour.Gray, Colour.Black);
         }
 
         #endregion
