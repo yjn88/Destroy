@@ -16,12 +16,14 @@
         /// 构建控制台
         /// </summary>
         /// <param name="consoleType">控制台类型</param>
+        /// <param name="bold">字体粗细</param>
         /// <param name="maximum">最大化</param>
         /// <param name="width">宽度</param>
         /// <param name="height">高度</param>
         /// <param name="title">标题</param>
         /// <returns>是否成功</returns>
-        public static void Construct(ConsoleType consoleType, bool maximum, short width, short height, string title = "Destroy")
+        public static void Construct(ConsoleType consoleType, bool bold, bool maximum,
+            short width, short height, string title = "Destroy")
         {
             //以下2方法必须在设置字体前使用:
             //设置标准调色盘
@@ -35,19 +37,23 @@
             switch (consoleType)
             {
                 case ConsoleType.Default:
-                    SetFontAndWindow("Consolas", false, 16, 16, maximum, width, height);
+                    SetFontAndWindow("Consolas", bold, 16, 16, maximum, width, height);
                     break;
                 case ConsoleType.Pixel:
-                    SetFontAndWindow("Terminal", false, 8, 8, maximum, width, height);
+                    SetFontAndWindow("Terminal", bold, 8, 8, maximum, width, height);
                     break;
                 case ConsoleType.HignQuality:
-                    SetFontAndWindow("MS Gothic", false, 1, 1, maximum, width, height);
+                    SetFontAndWindow("MS Gothic", bold, 1, 1, maximum, width, height);
                     break;
             }
 
             if (maximum)
             {
                 KERNEL.SET_WINDOW_POS(0, 0);
+            }
+            else
+            {
+                CONSOLE.CenterConsoleWindowPosition();
             }
         }
 
@@ -79,6 +85,10 @@
             if (maximum)
             {
                 KERNEL.SET_WINDOW_POS(0, 0);
+            }
+            else
+            {
+                CONSOLE.CenterConsoleWindowPosition();
             }
         }
 

@@ -26,82 +26,82 @@
         /// <summary>
         /// 黑色
         /// </summary>
-        public static Colour Black = new Colour(ConsoleColor.Black);
+        public static Colour Black { get; private set; } = new Colour(ConsoleColor.Black);
 
         /// <summary>
         /// 藏蓝色
         /// </summary>
-        public static Colour DarkBlue = new Colour(ConsoleColor.DarkBlue);
+        public static Colour DarkBlue { get; private set; } = new Colour(ConsoleColor.DarkBlue);
 
         /// <summary>
         /// 深绿色
         /// </summary>
-        public static Colour DarkGreen = new Colour(ConsoleColor.DarkGreen);
+        public static Colour DarkGreen { get; private set; } = new Colour(ConsoleColor.DarkGreen);
 
         /// <summary>
         /// 深紫色
         /// </summary>
-        public static Colour DarkCyan = new Colour(ConsoleColor.DarkCyan);
+        public static Colour DarkCyan { get; private set; } = new Colour(ConsoleColor.DarkCyan);
 
         /// <summary>
         /// 深红色
         /// </summary>
-        public static Colour DarkRed = new Colour(ConsoleColor.DarkRed);
+        public static Colour DarkRed { get; private set; } = new Colour(ConsoleColor.DarkRed);
 
         /// <summary>
         /// 深紫红色
         /// </summary>
-        public static Colour DarkMagenta = new Colour(ConsoleColor.DarkMagenta);
+        public static Colour DarkMagenta { get; private set; } = new Colour(ConsoleColor.DarkMagenta);
 
         /// <summary>
         /// 深黄色
         /// </summary>
-        public static Colour DarkYellow = new Colour(ConsoleColor.DarkYellow);
+        public static Colour DarkYellow { get; private set; } = new Colour(ConsoleColor.DarkYellow);
 
         /// <summary>
         /// 灰色
         /// </summary>
-        public static Colour Gray = new Colour(ConsoleColor.Gray);
+        public static Colour Gray { get; private set; } = new Colour(ConsoleColor.Gray);
 
         /// <summary>
         /// 深灰色
         /// </summary>
-        public static Colour DarkGray = new Colour(ConsoleColor.DarkGray);
+        public static Colour DarkGray { get; private set; } = new Colour(ConsoleColor.DarkGray);
 
         /// <summary>
         /// 蓝色
         /// </summary>
-        public static Colour Blue = new Colour(ConsoleColor.Blue);
+        public static Colour Blue { get; private set; } = new Colour(ConsoleColor.Blue);
 
         /// <summary>
         /// 绿色
         /// </summary>
-        public static Colour Green = new Colour(ConsoleColor.Green);
+        public static Colour Green { get; private set; } = new Colour(ConsoleColor.Green);
 
         /// <summary>
         /// 青色
         /// </summary>
-        public static Colour Cyan = new Colour(ConsoleColor.Cyan);
+        public static Colour Cyan { get; private set; } = new Colour(ConsoleColor.Cyan);
 
         /// <summary>
         /// 红色
         /// </summary>
-        public static Colour Red = new Colour(ConsoleColor.Red);
+        public static Colour Red { get; private set; } = new Colour(ConsoleColor.Red);
 
         /// <summary>
         /// 紫红色
         /// </summary>
-        public static Colour Magenta = new Colour(ConsoleColor.Magenta);
+        public static Colour Magenta { get; private set; } = new Colour(ConsoleColor.Magenta);
 
         /// <summary>
         /// 黄色
         /// </summary>
-        public static Colour Yellow = new Colour(ConsoleColor.Yellow);
+        public static Colour Yellow { get; private set; } = new Colour(ConsoleColor.Yellow);
 
         /// <summary>
         /// 白色
         /// </summary>
-        public static Colour White = new Colour(ConsoleColor.White);
+        public static Colour White { get; private set; } = new Colour(ConsoleColor.White);
 
         #endregion
 
