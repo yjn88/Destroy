@@ -212,6 +212,32 @@ EXPORT_FUNC MESSAGE_BOX(WCHAR * text, WCHAR * caption, UINT type, int* choose)
     return TRUE;
 }
 
+//GetConsoleWindow
+//https://docs.microsoft.com/en-us/windows/console/getconsolewindow
+//ShowWindow
+//https://docs.microsoft.com/en-us/windows/desktop/api/winuser/nf-winuser-showwindow
+EXPORT_FUNC MAXIMIZE_WINDOW(BOOL maximize)
+{
+    HWND hConsoleWindow = GetConsoleWindow();
+    if (hConsoleWindow == NULL)
+        return FALSE;
+
+    int cmd = 0;
+
+    if (maximize)
+    {
+        cmd = SW_MAXIMIZE;
+    }
+    else
+    {
+        cmd = SW_RESTORE;
+    }
+    //Dont care the result value
+    ShowWindow(hConsoleWindow, cmd);
+    
+    return TRUE;
+}
+
 #pragma endregion
 
 #pragma region Console

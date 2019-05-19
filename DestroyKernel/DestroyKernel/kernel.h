@@ -57,6 +57,8 @@ EXPORT_FUNC SET_CURSOR_POS(int x, int y);
 
 EXPORT_FUNC MESSAGE_BOX(WCHAR * text, WCHAR * caption, UINT type, int* choose);
 
+EXPORT_FUNC MAXIMIZE_WINDOW(BOOL maximize);
+
 #pragma endregion
 
 #pragma region Console

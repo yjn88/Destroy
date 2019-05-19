@@ -116,6 +116,14 @@
         [DllImport(DESTROY_KERNEL, CharSet = CharSet.Unicode)]
         public static extern bool MESSAGE_BOX(string text, string caption, uint type, out int choose);
 
+        /// <summary>
+        /// 最大化窗口
+        /// </summary>
+        /// <param name="maximize">是否最大化(如果窗口此时已经最大化并且该参数为false则会还原窗口尺寸)</param>
+        /// <returns>是否成功</returns>
+        [DllImport(DESTROY_KERNEL)]
+        public static extern bool MAXIMIZE_WINDOW(bool maximize);
+
         #endregion
 
         #region Console
