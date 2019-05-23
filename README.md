@@ -13,6 +13,7 @@
 * 未来更新蓝图包括:
     1. 实现Examples
     2. 重写README并提供中文, English, русский的支持
+    3. 实现DestroyCpp并制作相应的游戏
 ## 立即上手:
 
 * 首先你需要创建一个C#控制台项目(.Net Framework)
