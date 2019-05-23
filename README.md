@@ -67,3 +67,5 @@ private static void Update()
 }
 ```
 还有更多! 阅读[Wiki](https://github.com/GreatDestroyerCharlie/Destroy/wiki)以获取更多API的简介
+
+如果想支持一下本项目的发展, 别忘了给一个星🌟哦
