@@ -1,20 +1,25 @@
 # Destroy
 
-### [GreatDestroyerCharlie](https://github.com/GreatDestroyerCharlie) Presents
+### GreatDestroyerCharlie Presents
 
 [English](https://github.com/GreatDestroyerCharlie/Destroy/blob/master/Docs/README.md)
 
 ## 欢迎来到Destroy的储存库!
 
-这是一个主要使用`C#`打造的游戏引擎, 专为[Windows Console](https://github.com/microsoft/terminal)设计
+这是一个主要使用C#打造的游戏引擎, 专为[Windows Console](https://github.com/microsoft/terminal)设计
 
+## 注意:
+* 本项目由于主创(GreatDestroyerCharlie)正在学习俄语与C++, 短期内暂停更新。
+* 未来更新蓝图包括:
+    1. 实现Examples
+    2. 重写README并提供中文, English, русский的支持
 ## 立即上手:
 
-* 首先你需要创建一个C#控制台项目(DotNet Framework)
+* 首先你需要创建一个C#控制台项目(.Net Framework)
 * 接下来编译DestroyKernel与Destroy或下载可用的[Release](https://github.com/GreatDestroyerCharlie/Destroy/releases)以获得动态链接库(dll), 并将它们放在控制台项目的bin文件夹里
 * 在控制台项目中添加对Destroy.dll的引用
 
-`构造控制台`:
+构造控制台:
 ``` cs
 namespace Example
 {
@@ -39,11 +44,11 @@ namespace Example
     }
 }
 ```
-`开始游戏的生命周期`:
+开始游戏的生命周期:
 ``` cs
 RuntimeEngine.Start(onStart: null, onUpdate: null, onDestroy: null, fps: 60);
 ```
-`输入与输出`:
+输入与输出:
 ``` cs
 private static void Start()
 {
@@ -60,4 +65,4 @@ private static void Update()
     }
 }
 ```
-`还有更多!` 阅读[Wiki](https://github.com/GreatDestroyerCharlie/Destroy/wiki)以获取更多API的简介
+还有更多! 阅读[Wiki](https://github.com/GreatDestroyerCharlie/Destroy/wiki)以获取更多API的简介
