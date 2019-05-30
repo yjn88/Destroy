@@ -3,7 +3,6 @@
     using Destroy.Kernel;
     using System;
     using System.Text;
-    using System.Threading;
 
     /// <summary>
     /// 运行时引擎, 接管整个游戏的生命周期 <see langword="static"/>
@@ -124,7 +123,7 @@
 
                 while (timeCost < tickTime)
                 {
-                    Thread.Sleep(0);                //短暂让出线程防止死循环
+                    KERNEL.SLEEP(0);                //短暂让出线程防止死循环
                     KERNEL.END_TIMING(freq, start, out timeCost);
                 }
 

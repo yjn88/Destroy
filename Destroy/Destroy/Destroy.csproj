@@ -48,6 +48,7 @@
     <Compile Include="Base\Input.cs" />
     <Compile Include="Base\IPlayable.cs" />
     <Compile Include="Base\Navigation.cs" />
+    <Compile Include="Base\ObjectPool.cs" />
     <Compile Include="Base\Physics.cs" />
     <Compile Include="Base\RuntimeEngine.cs" />
     <Compile Include="Base\Singleton.cs" />

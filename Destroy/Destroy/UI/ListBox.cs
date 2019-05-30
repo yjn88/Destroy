@@ -1,6 +1,5 @@
 ﻿namespace Destroy.UI
 {
-    using System;
     using System.Collections.Generic;
     using System.Text;
 
@@ -126,7 +125,6 @@
         /// </summary>
         public override void Update()
         {
-            throw new NotImplementedException();
         }
     }
 }
