@@ -172,10 +172,12 @@
                 Error.Pop("specific width/height is too big!");
             }
 
-            //如果发生报错, 尝试使用下面这行代码
-            //KERNEL.SET_CONSOLE_WINDOW_SIZE(CONSOLE.OutputHandle, 1, 1);
-            KERNEL.SET_CONSOLE_BUFFER_SIZE(CONSOLE.OutputHandle, width, height);
-            KERNEL.SET_CONSOLE_WINDOW_SIZE(CONSOLE.OutputHandle, width, height);
+            //如果发生报错, 尝试使用或禁用下面这行代码
+            KERNEL.SET_CONSOLE_WINDOW_SIZE(CONSOLE.OutputHandle, 1, 1);
+            CONSOLE.BufferWidth = width;
+            CONSOLE.WindowWidth = width;
+            CONSOLE.BufferHeight = height;
+            CONSOLE.WindowHeight = height;
         }
     }
 }
