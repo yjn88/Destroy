@@ -24,14 +24,7 @@
         public static void Construct(ConsoleType consoleType, bool bold, bool maximum,
             short width, short height, string title = "Destroy")
         {
-            //以下2方法必须在设置字体前使用:
-            //设置标准调色盘
-            CONSOLE.SetStdConsolePalette(CONSOLE.OutputHandle);
-            //设置标准控制台模式
-            CONSOLE.SetStdConsoleMode(CONSOLE.OutputHandle, CONSOLE.InputHandle);
-            CONSOLE.InputEncoding = Encoding.UTF8;
-            CONSOLE.OutputEncoding = Encoding.UTF8;
-            CONSOLE.Title = title;
+            SetConsoleSetting(title);
 
             switch (consoleType)
             {
@@ -70,15 +63,8 @@
         public static void Construct(string fontName, bool bold, short fontWidth, short fontHeight,
             bool maximum, short width, short height, string title = "Destroy")
         {
-            //以下2方法必须在设置字体前使用:
-            //设置标准调色盘
-            CONSOLE.SetStdConsolePalette(CONSOLE.OutputHandle);
-            //设置标准控制台模式
-            CONSOLE.SetStdConsoleMode(CONSOLE.OutputHandle, CONSOLE.InputHandle);
-            CONSOLE.InputEncoding = Encoding.UTF8;
-            CONSOLE.OutputEncoding = Encoding.UTF8;
-            CONSOLE.Title = title;
-
+            SetConsoleSetting(title);
+            
             SetFontAndWindow(fontName, bold, fontWidth, fontHeight, maximum, width, height);
 
             if (maximum)
@@ -143,9 +129,33 @@
         }
 
         /// <summary>
+        /// 设置控制台设置
+        /// </summary>
+        /// <param name="title">控制台标题</param>
+        public static void SetConsoleSetting(string title)
+        {
+            //以下2方法必须在设置字体前使用:
+            //设置标准调色盘
+            CONSOLE.SetStdConsolePalette(CONSOLE.OutputHandle);
+            //设置标准控制台模式
+            CONSOLE.SetStdConsoleMode(CONSOLE.OutputHandle, CONSOLE.InputHandle);
+            CONSOLE.InputEncoding = Encoding.UTF8;
+            CONSOLE.OutputEncoding = Encoding.UTF8;
+            CONSOLE.Title = title;
+        }
+
+        /// <summary>
         /// Warning:该方法不稳定, 出现错误时需要手动设置(屏幕缓冲区, 窗口大小, 字体大小等)
         /// </summary>
-        private static void SetFontAndWindow(string fontName, bool bold, short fontWidth, short fontHeight, bool maximum, short width, short height)
+        /// <param name="fontName">字体名字</param>
+        /// <param name="bold">字体粗细</param>
+        /// <param name="fontWidth">字体宽度</param>
+        /// <param name="fontHeight">字体高度</param>
+        /// <param name="maximum">最大化</param>
+        /// <param name="width">宽度</param>
+        /// <param name="height">高度</param>
+        [Unstable]
+        public static void SetFontAndWindow(string fontName, bool bold, short fontWidth, short fontHeight, bool maximum, short width, short height)
         {
             CONSOLE.SetConsoleFont(CONSOLE.OutputHandle, bold, fontWidth, fontHeight, fontName);
 
@@ -159,10 +169,11 @@
             }
             else if (width > largestWidth || height > largestHeight)
             {
-                throw new Exception("specific width/height is too big!");
+                Error.Pop("specific width/height is too big!");
             }
 
-            KERNEL.SET_CONSOLE_WINDOW_SIZE(CONSOLE.OutputHandle, 1, 1);
+            //如果发生报错, 尝试使用下面这行代码
+            //KERNEL.SET_CONSOLE_WINDOW_SIZE(CONSOLE.OutputHandle, 1, 1);
             KERNEL.SET_CONSOLE_BUFFER_SIZE(CONSOLE.OutputHandle, width, height);
             KERNEL.SET_CONSOLE_WINDOW_SIZE(CONSOLE.OutputHandle, width, height);
         }

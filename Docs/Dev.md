@@ -6,6 +6,8 @@ Dev
 
 ## 注意
 
+* 在线生成ascii字符画网站:https://www.jianshu.com/p/fca56d635091
+
 * md的超链接不能加引号
 
 * C/CPP项目最好使用多线程编译(MT)

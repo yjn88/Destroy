@@ -260,6 +260,104 @@
         }
 
         /// <summary>
+        /// 根据字符串创建图形网格集合(适用于单宽模式)
+        /// </summary>
+        /// <param name="position">坐标</param>
+        /// <param name="str">字符串</param>
+        /// <param name="foreColor">前景色</param>
+        /// <param name="backColor">背景色</param>
+        /// <param name="depth">深度</param>
+        /// <returns>图形网格集合</returns>
+        public List<GraphicGrid> CreatGridByString1(Vector2 position, string str, Colour foreColor, Colour backColor, uint depth = 0)
+        {
+            List<GraphicGrid> graphicGrids = new List<GraphicGrid>();
+
+            for (int i = 0; i < str.Length; i++)
+            {
+                char item = str[i];
+                GraphicGrid graphicGrid = null;
+                Vector2 pos = new Vector2(position.X + i, position.Y);
+
+                graphicGrid = CreatGrid(pos, new CharInfo(item, foreColor, backColor), depth);
+
+                graphicGrids.Add(graphicGrid);
+            }
+            return graphicGrids;
+        }
+
+        /// <summary>
+        /// 根据字符串创建图形网格集合(适用于单宽模式)
+        /// </summary>
+        /// <param name="position">坐标</param>
+        /// <param name="str">字符串</param>
+        /// <param name="foreColors">前景色</param>
+        /// <param name="backColors">背景色</param>
+        /// <param name="depth">深度</param>
+        /// <returns>图形网格集合</returns>
+        public List<GraphicGrid> CreatGridByString1(Vector2 position, string str, Colour[] foreColors, Colour[] backColors, uint depth = 0)
+        {
+            List<GraphicGrid> graphicGrids = new List<GraphicGrid>();
+
+            for (int i = 0; i < str.Length; i++)
+            {
+                char item = str[i];
+                GraphicGrid graphicGrid = null;
+                Vector2 pos = new Vector2(position.X + i, position.Y);
+                Colour foreColor = foreColors[i];
+                Colour backColor = backColors[i];
+
+                graphicGrid = CreatGrid(pos, new CharInfo(item, foreColor, backColor), depth);
+
+                graphicGrids.Add(graphicGrid);
+            }
+            return graphicGrids;
+        }
+
+        /// <summary>
+        /// 根据字符串数组创建图形网格集合(适用于单宽模式)
+        /// </summary>
+        /// <param name="position">坐标</param>
+        /// <param name="strs">字符串数组</param>
+        /// <param name="foreColor">前景色</param>
+        /// <param name="backColor">背景色</param>
+        /// <param name="depth">深度</param>
+        /// <returns>图形网格集合</returns>
+        public List<GraphicGrid> CreatGridByStrings1(Vector2 position, string[] strs, Colour foreColor, Colour backColor, uint depth = 0)
+        {
+            List<GraphicGrid> graphicGrids = new List<GraphicGrid>();
+            for (int i = 0; i < strs.Length; i++)
+            {
+                Vector2 pos = new Vector2(position.X, position.Y + i);
+                List<GraphicGrid> grids = CreatGridByString1(pos, strs[i], foreColor, backColor, depth);
+                graphicGrids.AddRange(grids);
+            }
+            return graphicGrids;
+        }
+
+        /// <summary>
+        /// 根据字符串数组创建图形网格集合(适用于单宽模式)
+        /// </summary>
+        /// <param name="position">坐标</param>
+        /// <param name="strs">字符串数组</param>
+        /// <param name="foreColors">前景色</param>
+        /// <param name="backColors">背景色</param>
+        /// <param name="depth">深度</param>
+        /// <returns>图形网格集合</returns>
+        public List<GraphicGrid> CreatGridByStrings1(Vector2 position, string[] strs, Colour[] foreColors, Colour[] backColors, uint depth = 0)
+        {
+            List<GraphicGrid> graphicGrids = new List<GraphicGrid>();
+            for (int i = 0; i < strs.Length; i++)
+            {
+                Vector2 pos = new Vector2(position.X, position.Y + i);
+                Colour foreColor = foreColors[i];
+                Colour backColor = backColors[i];
+                List<GraphicGrid> grids = CreatGridByString1(pos, strs[i], foreColor, backColor, depth);
+                graphicGrids.AddRange(grids);
+            }
+            return graphicGrids;
+        }
+
+        /// <summary>
         /// 根据字符串创建图形网格集合(适用于双宽模式)
         /// </summary>
         /// <param name="position">坐标</param>
@@ -643,6 +741,81 @@
                     infos[index] = left;
                     infos[index + 1] = right;
                 }
+            }
+        }
+
+        /// <summary>
+        /// 根据字符串设置图形网格集合(适用于单宽模式)
+        /// </summary>
+        /// <param name="position">坐标</param>
+        /// <param name="str">字符串</param>
+        /// <param name="foreColor">前景色</param>
+        /// <param name="backColor">背景色</param>
+        /// <returns>图形网格集合</returns>
+        public void SetGridByString1(Vector2 position, string str, Colour foreColor, Colour backColor)
+        {
+            for (int i = 0; i < str.Length; i++)
+            {
+                char item = str[i];
+                Vector2 pos = new Vector2(position.X + i, position.Y);
+                SetGrid(pos, new CharInfo(item, foreColor, backColor));
+            }
+        }
+
+        /// <summary>
+        /// 根据字符串设置图形网格集合(适用于单宽模式)
+        /// </summary>
+        /// <param name="position">坐标</param>
+        /// <param name="str">字符串</param>
+        /// <param name="foreColors">前景色</param>
+        /// <param name="backColors">背景色</param>
+        /// <returns>图形网格集合</returns>
+        public void SetGridByString1(Vector2 position, string str, Colour[] foreColors, Colour[] backColors)
+        {
+            for (int i = 0; i < str.Length; i++)
+            {
+                char item = str[i];
+                Vector2 pos = new Vector2(position.X + i, position.Y);
+                Colour foreColor = foreColors[i];
+                Colour backColor = backColors[i];
+
+                SetGrid(pos, new CharInfo(item, foreColor, backColor));
+            }
+        }
+
+        /// <summary>
+        /// 根据字符串数组设置图形网格集合(适用于单宽模式)
+        /// </summary>
+        /// <param name="position">坐标</param>
+        /// <param name="strs">字符串数组</param>
+        /// <param name="foreColor">前景色</param>
+        /// <param name="backColor">背景色</param>
+        /// <returns>图形网格集合</returns>
+        public void SetGridByStrings1(Vector2 position, string[] strs, Colour foreColor, Colour backColor)
+        {
+            for (int i = 0; i < strs.Length; i++)
+            {
+                Vector2 pos = new Vector2(position.X, position.Y + i);
+                SetGridByString1(pos, strs[i], foreColor, backColor);
+            }
+        }
+
+        /// <summary>
+        /// 根据字符串数组设置图形网格集合(适用于单宽模式)
+        /// </summary>
+        /// <param name="position">坐标</param>
+        /// <param name="strs">字符串数组</param>
+        /// <param name="foreColors">前景色</param>
+        /// <param name="backColors">背景色</param>
+        /// <returns>图形网格集合</returns>
+        public void SetGridByStrings1(Vector2 position, string[] strs, Colour[] foreColors, Colour[] backColors)
+        {
+            for (int i = 0; i < strs.Length; i++)
+            {
+                Vector2 pos = new Vector2(position.X, position.Y + i);
+                Colour foreColor = foreColors[i];
+                Colour backColor = backColors[i];
+                SetGridByString1(pos, strs[i], foreColor, backColor);
             }
         }
 

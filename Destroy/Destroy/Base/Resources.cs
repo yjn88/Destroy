@@ -21,12 +21,13 @@
         public const string TXT = ".txt";
 
         /// <summary>
-        /// 使用.txt文件创建图形容器对象
+        /// 获取.txt文件里行的最大宽高
         /// </summary>
         /// <param name="name">文件名(可以不写.txt后缀)</param>
-        /// <param name="graphics">图形对象</param>
-        /// <returns>图形容器对象</returns>
-        public static GraphicContainer CreatByTxt(this Graphics graphics, string name)
+        /// <param name="width">最宽</param>
+        /// <param name="height">最高</param>
+        /// <param name="trim">是否忽略每行尾部空格</param>
+        public static void GetMaxSizeInTxt(string name, out int width, out int height, bool trim = true)
         {
             string path = string.Empty;
             if (name.Contains("."))
@@ -43,9 +44,65 @@
             }
 
             string[] lines = File.ReadAllLines(path, Encoding.UTF8);
+            width = 0;
+            height = lines.Length;
+            for (int i = 0; i < lines.Length; i++)
+            {
+                if (lines[i].Length > width)
+                {
+                    width = lines[i].Length;
+                }
+                //去除尾部空格
+                if (trim)
+                {
+                    lines[i] = lines[i].TrimEnd();
+                }
+            }
+        }
 
-            List<GraphicGrid> grids = graphics.CreatGridByStrings(
-                Vector2.Zero, lines, Colour.Gray, Colour.Black);
+        /// <summary>
+        /// 使用.txt文件创建图形容器对象
+        /// </summary>
+        /// <param name="name">文件名(可以不写.txt后缀)</param>
+        /// <param name="graphics">图形对象</param>
+        /// <param name="trim">是否去除每行尾部空格</param>
+        /// <returns>图形容器对象</returns>
+        public static GraphicContainer CreatByTxt(this Graphics graphics, string name, bool trim = true)
+        {
+            string path = string.Empty;
+            if (name.Contains("."))
+            {
+                path = Path.Combine(ResourcesDirectory, name);
+            }
+            else
+            {
+                path = Path.Combine(ResourcesDirectory, name + TXT);
+            }
+            if (!File.Exists(path))
+            {
+                Error.Pop("Path does not exists!");
+            }
+
+            string[] lines = File.ReadAllLines(path, Encoding.UTF8);
+            if (trim)
+            {
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    //去除尾部空格
+                    lines[i] = lines[i].TrimEnd();
+                }
+            }
+
+            List<GraphicGrid> grids = new List<GraphicGrid>();
+            if (graphics.CharWidth == CharWidth.Double)
+            {
+                grids = graphics.CreatGridByStrings(Vector2.Zero, lines, Colour.Gray, Colour.Black);
+            }
+            else if (graphics.CharWidth == CharWidth.Single)
+            {
+                grids = graphics.CreatGridByStrings1(Vector2.Zero, lines, Colour.Gray, Colour.Black);
+            }
+
             GraphicContainer container = new GraphicContainer(grids);
             return container;
         }

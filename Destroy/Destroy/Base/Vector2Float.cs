@@ -149,7 +149,7 @@
         {
             if (right == 0)
             {
-                throw new Exception("Error!");
+                Error.Pop();
             }
             left.X /= right;
             left.Y /= right;
