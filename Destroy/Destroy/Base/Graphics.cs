@@ -231,7 +231,7 @@
         }
 
         /// <summary>
-        /// 创建图形网格
+        /// 创建图形网格(适用于单宽与双宽模式)
         /// </summary>
         /// <param name="position">坐标</param>
         /// <param name="left">左边的字符信息</param>
@@ -245,7 +245,7 @@
         }
 
         /// <summary>
-        /// 创建图形网格
+        /// 创建图形网格(适用于双宽模式)
         /// </summary>
         /// <param name="position">坐标</param>
         /// <param name="left">左边的字符信息</param>
@@ -375,7 +375,7 @@
         }
 
         /// <summary>
-        /// 根据数组创建图形网格集合
+        /// 根据数组创建图形网格集合(适用于单宽与双宽模式)
         /// </summary>
         /// <param name="position">坐标</param>
         /// <param name="strs">字符串数组</param>
@@ -415,7 +415,7 @@
         }
 
         /// <summary>
-        /// 根据数组创建图形网格集合
+        /// 根据数组创建图形网格集合(适用于单宽与双宽模式)
         /// </summary>
         /// <param name="position">坐标</param>
         /// <param name="strs">字符串数组</param>
@@ -457,7 +457,7 @@
         }
 
         /// <summary>
-        /// 创建矩形
+        /// 创建矩形(适用于单宽与双宽模式)
         /// </summary>
         /// <param name="position">坐标</param>
         /// <param name="size">尺寸</param>
@@ -511,7 +511,7 @@
         }
 
         /// <summary>
-        /// 创建矩形
+        /// 创建矩形(适用于单宽与双宽模式)
         /// </summary>
         /// <param name="position">坐标</param>
         /// <param name="size">尺寸</param>
@@ -600,7 +600,7 @@
         }
 
         /// <summary>
-        /// 设置图形网格
+        /// 设置图形网格(适用于单宽与双宽模式)
         /// </summary>
         /// <param name="position">坐标</param>
         /// <param name="left">左边的字符信息</param>
@@ -623,7 +623,7 @@
         }
 
         /// <summary>
-        /// 设置图形网格
+        /// 设置图形网格(适用于双宽模式)
         /// </summary>
         /// <param name="position">坐标</param>
         /// <param name="left">左边的字符信息</param>
@@ -741,7 +741,7 @@
         }
 
         /// <summary>
-        /// 根据数组设置图形网格集合
+        /// 根据数组设置图形网格集合(适用于单宽与双宽模式)
         /// </summary>
         /// <param name="position">坐标</param>
         /// <param name="strs">字符串</param>
@@ -771,7 +771,7 @@
         }
 
         /// <summary>
-        /// 根据数组设置图形网格集合
+        /// 根据数组设置图形网格集合(适用于单宽与双宽模式)
         /// </summary>
         /// <param name="position">坐标</param>
         /// <param name="strs">字符串</param>
@@ -803,7 +803,7 @@
         }
 
         /// <summary>
-        /// 设置矩形
+        /// 设置矩形(适用于单宽与双宽模式)
         /// </summary>
         /// <param name="position">坐标</param>
         /// <param name="size">尺寸</param>
@@ -833,7 +833,7 @@
         }
 
         /// <summary>
-        /// 设置矩形
+        /// 设置矩形(适用于单宽与双宽模式)
         /// </summary>
         /// <param name="position">坐标</param>
         /// <param name="size">尺寸</param>
