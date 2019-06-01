@@ -183,9 +183,10 @@
 
         private const int SIZE_OF_WCHAR = 2;
 
-        private const int MAX_PATH = 260;
+        //可以根据需要更改以下两个常量的值
+        private const int MAX_PATH = 260; //默认是260
 
-        private const int FACE_SIZE = 32;
+        private const int FACE_SIZE = 32; //默认是32
 
         private static IntPtr inputHandle;
 

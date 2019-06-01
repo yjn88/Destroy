@@ -6,7 +6,7 @@
     using System.Text;
 
     /// <summary>
-    /// 资源管理
+    /// 资源管理 <see langword="static"/>
     /// </summary>
     public static class Resources
     {
@@ -21,90 +21,125 @@
         public const string TXT = ".txt";
 
         /// <summary>
-        /// 获取.txt文件里行的最大宽高
+        /// 读取.txt文件
         /// </summary>
-        /// <param name="name">文件名(可以不写.txt后缀)</param>
-        /// <param name="width">最宽</param>
-        /// <param name="height">最高</param>
-        /// <param name="trim">是否忽略每行尾部空格</param>
-        public static void GetMaxSizeInTxt(string name, out int width, out int height, bool trim = true)
+        /// <param name="fileName">文件名(可以不写.txt后缀)</param>
+        /// <returns>字符行数组</returns>
+        public static string[] ReadLines(string fileName)
         {
             string path = string.Empty;
-            if (name.Contains("."))
+            if (fileName.Contains("."))
             {
-                path = Path.Combine(ResourcesDirectory, name);
+                path = Path.Combine(ResourcesDirectory, fileName);
             }
             else
             {
-                path = Path.Combine(ResourcesDirectory, name + TXT);
+                path = Path.Combine(ResourcesDirectory, fileName + TXT);
             }
             if (!File.Exists(path))
             {
                 Error.Pop("Path does not exists!");
             }
-
             string[] lines = File.ReadAllLines(path, Encoding.UTF8);
+            return lines;
+        }
+
+        /// <summary>
+        /// 获取lines的最大宽高
+        /// </summary>
+        /// <param name="lines">行</param>
+        /// <param name="width">最宽</param>
+        /// <param name="height">最高</param>
+        /// <param name="ignore">是否忽略每行尾部空格</param>
+        public static void GetLinesSize(string[] lines, out int width, out int height, bool ignore = false)
+        {
             width = 0;
             height = lines.Length;
             for (int i = 0; i < lines.Length; i++)
             {
-                if (lines[i].Length > width)
+                string line = lines[i];
+                //忽略尾部空格
+                if (ignore)
                 {
-                    width = lines[i].Length;
+                    line = line.TrimEnd();
                 }
-                //去除尾部空格
-                if (trim)
+                if (line.Length > width)
                 {
-                    lines[i] = lines[i].TrimEnd();
+                    width = line.Length;
                 }
             }
         }
 
         /// <summary>
-        /// 使用.txt文件创建图形容器对象
+        /// 创建图形容器对象
         /// </summary>
-        /// <param name="name">文件名(可以不写.txt后缀)</param>
         /// <param name="graphics">图形对象</param>
-        /// <param name="trim">是否去除每行尾部空格</param>
+        /// <param name="lines">字符行数组</param>
+        /// <param name="ignore">是否忽略每行尾部空格</param>
         /// <returns>图形容器对象</returns>
-        public static GraphicContainer CreatByTxt(this Graphics graphics, string name, bool trim = true)
+        public static GraphicContainer CreatContainerByLines(this Graphics graphics, string[] lines, bool ignore = false)
         {
-            string path = string.Empty;
-            if (name.Contains("."))
+            string[] ls = new string[lines.Length];
+            if (ignore)
             {
-                path = Path.Combine(ResourcesDirectory, name);
+                for (int i = 0; i < ls.Length; i++)
+                {
+                    ls[i] = lines[i].TrimEnd(); //去除尾部空格
+                }
             }
             else
             {
-                path = Path.Combine(ResourcesDirectory, name + TXT);
-            }
-            if (!File.Exists(path))
-            {
-                Error.Pop("Path does not exists!");
-            }
-
-            string[] lines = File.ReadAllLines(path, Encoding.UTF8);
-            if (trim)
-            {
-                for (int i = 0; i < lines.Length; i++)
+                for (int i = 0; i < ls.Length; i++)
                 {
-                    //去除尾部空格
-                    lines[i] = lines[i].TrimEnd();
+                    ls[i] = lines[i];
                 }
             }
 
             List<GraphicGrid> grids = new List<GraphicGrid>();
             if (graphics.CharWidth == CharWidth.Double)
             {
-                grids = graphics.CreatGridByStrings(Vector2.Zero, lines, Colour.Gray, Colour.Black);
+                grids = graphics.CreatGridByStrings(Vector2.Zero, ls, Colour.Gray, Colour.Black);
             }
             else if (graphics.CharWidth == CharWidth.Single)
             {
-                grids = graphics.CreatGridByStrings1(Vector2.Zero, lines, Colour.Gray, Colour.Black);
+                grids = graphics.CreatGridByStrings1(Vector2.Zero, ls, Colour.Gray, Colour.Black);
             }
-
             GraphicContainer container = new GraphicContainer(grids);
             return container;
+        }
+
+        /// <summary>
+        /// 设置图形容器对象
+        /// </summary>
+        /// <param name="graphics">图形对象</param>
+        /// <param name="lines">字符行数组</param>
+        /// <param name="ignore">是否忽略每行尾部空格</param>
+        public static void SetContainerByLines(this Graphics graphics, string[] lines, bool ignore = false)
+        {
+            string[] ls = new string[lines.Length];
+            if (ignore)
+            {
+                for (int i = 0; i < ls.Length; i++)
+                {
+                    ls[i] = lines[i].TrimEnd(); //去除尾部空格
+                }
+            }
+            else
+            {
+                for (int i = 0; i < ls.Length; i++)
+                {
+                    ls[i] = lines[i];
+                }
+            }
+
+            if (graphics.CharWidth == CharWidth.Double)
+            {
+                graphics.SetGridByStrings(Vector2.Zero, ls, Colour.Gray, Colour.Black);
+            }
+            else if (graphics.CharWidth == CharWidth.Single)
+            {
+                graphics.SetGridByStrings1(Vector2.Zero, ls, Colour.Gray, Colour.Black);
+            }
         }
 
         /// <summary>
