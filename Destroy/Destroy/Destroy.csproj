@@ -65,6 +65,7 @@
     <Compile Include="Network\NetworkServer.cs" />
     <Compile Include="Network\Udp.cs" />
     <Compile Include="UI\Button.cs" />
+    <Compile Include="UI\DialogBox.cs" />
     <Compile Include="UI\ListBox.cs" />
     <Compile Include="UI\UIObject.cs" />
   </ItemGroup>

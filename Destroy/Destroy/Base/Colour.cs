@@ -3,7 +3,7 @@
     using System;
 
     /// <summary>
-    /// 颜色
+    /// 颜色(为了方便后期扩展所以用于代替ConsoleColor)
     /// </summary>
     public class Colour
     {

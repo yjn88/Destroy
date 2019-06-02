@@ -4,7 +4,7 @@
     using System.Text;
 
     /// <summary>
-    /// 列表(适用于双宽模式)
+    /// 列表(仅适用于双宽模式)
     /// </summary>
     public class ListBox : UIObject
     {
