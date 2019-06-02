@@ -57,6 +57,7 @@
     <Compile Include="Base\Time.cs" />
     <Compile Include="Base\Vector2.cs" />
     <Compile Include="Base\Vector2Float.cs" />
+    <Compile Include="Kernel\AUDIO.cs" />
     <Compile Include="Kernel\CONSOLE.cs" />
     <Compile Include="Kernel\KERNEL.cs" />
     <Compile Include="Network\Common.cs" />

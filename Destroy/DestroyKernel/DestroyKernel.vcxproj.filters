@@ -14,9 +14,15 @@
     <ClInclude Include="kernel.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="audio.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="kernel.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="audio.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

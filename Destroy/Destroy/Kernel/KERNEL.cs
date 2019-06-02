@@ -8,7 +8,7 @@
     /// </summary>
     public static class KERNEL
     {
-        private const string DESTROY_KERNEL = "DestroyKernel.dll";
+        internal const string DESTROY_KERNEL = "DestroyKernel.dll";
 
         #region Window
 

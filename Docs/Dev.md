@@ -6,6 +6,8 @@ Dev
 
 ## 注意
 
+* Media Control Interface教程:https://blog.csdn.net/wangqiulin123456/article/details/8231551
+
 * 在线生成ascii字符画网站:https://www.jianshu.com/p/fca56d635091
 
 * md的超链接不能加引号
