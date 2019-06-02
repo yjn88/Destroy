@@ -82,6 +82,26 @@
         /// <summary>
         /// 构建控制台并创建相应的图形对象
         /// </summary>
+        /// <param name="consoleType">控制台类型</param>
+        /// <param name="bold">字体粗细</param>
+        /// <param name="maximum">最大化</param>
+        /// <param name="width">宽度</param>
+        /// <param name="height">高度</param>
+        /// <param name="charWidth">字符宽度</param>
+        /// <param name="title">标题</param>
+        /// <returns>图形对象</returns>
+        public static Graphics Construct2(ConsoleType consoleType, bool bold, bool maximum,
+            short width, short height, CharWidth charWidth, string title = "Destroy")
+        {
+            short w = (short)(width * (int)charWidth);
+            Construct(consoleType, bold, maximum, w, height, title);
+            Graphics graphics = new Graphics(width, height, charWidth);
+            return graphics;
+        }
+
+        /// <summary>
+        /// 构建控制台并创建相应的图形对象
+        /// </summary>
         /// <param name="fontName">字体名字</param>
         /// <param name="bold">字体粗细</param>
         /// <param name="fontWidth">字体宽度</param>
@@ -95,8 +115,8 @@
         public static Graphics Construct2(string fontName, bool bold, short fontWidth, short fontHeight,
             bool maximum, short width, short height, CharWidth charWidth, string title = "Destroy")
         {
-            Construct(fontName, bold, fontWidth, fontHeight,
-                maximum, (short)(width * (int)charWidth), height, title);
+            short w = (short)(width * (int)charWidth);
+            Construct(fontName, bold, fontWidth, fontHeight, maximum, w, height, title);
             Graphics graphics = new Graphics(width, height, charWidth);
             return graphics;
         }

@@ -76,9 +76,8 @@
             //根据字符串数组初始化宽高
             Resources.GetLinesSize(lines, out int width, out int height);
             //初始化控制台
-            Graphics graphics = RuntimeEngine.Construct2(
-                "Consolas", true, 8, 16, false,
-                (short)width, (short)height, CharWidth.Single);
+            Graphics graphics = RuntimeEngine.Construct2(ConsoleType.Default, 
+                true, false, (short)width, (short)height, CharWidth.Single);
             //变量定义
             GraphicContainer computer = null;
             Vector2 cursorPos = new Vector2(15, 8);
