@@ -10,6 +10,26 @@
     public static class Assets
     {
         /// <summary>
+        /// 空
+        /// </summary>
+        public const char EMPTY = '\0';
+
+        /// <summary>
+        /// 星形
+        /// </summary>
+        public const char STAR = '★';
+
+        /// <summary>
+        /// 正方形
+        /// </summary>
+        public const char SQUARE = '■';
+
+        /// <summary>
+        /// 菱形
+        /// </summary>
+        public const char DIAMOND = '◆';
+
+        /// <summary>
         /// 播放MadeWithDestroy的动画
         /// </summary>
         /// <param name="center">是否居中显示</param>

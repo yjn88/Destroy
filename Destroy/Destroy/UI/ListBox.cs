@@ -19,6 +19,11 @@
         public int Height;
 
         /// <summary>
+        /// 图形网格集合
+        /// </summary>
+        public List<GraphicGrid> GraphicGrids;
+
+        /// <summary>
         /// 行
         /// </summary>
         public List<GraphicContainer> Lines;
@@ -46,7 +51,7 @@
             }
             Width = width;
             Height = height;
-
+            //构造字符串数组
             List<string> lines = new List<string>();
             StringBuilder builder = new StringBuilder();
             //构造第一行
@@ -80,13 +85,13 @@
             builder.Append("┘");
             lines.Add(builder.ToString());
 
+            //创建图形网格集合
             List<GraphicGrid> graphicGrids =
                 graphics.CreatGridByStrings(position, lines.ToArray(),
                 foreColor, backColor, depth);
-
+            GraphicGrids = graphicGrids;
             List<GraphicGrid> border = new List<GraphicGrid>();
             List<GraphicGrid> inside = new List<GraphicGrid>();
-
             foreach (GraphicGrid item in graphicGrids)
             {
                 //border
@@ -100,10 +105,10 @@
                     inside.Add(item);
                 }
             }
+
             //把内部所有的图形网格分割成一行行的
             List<GraphicContainer> insideLines = new List<GraphicContainer>();
             List<GraphicGrid> insideLine = new List<GraphicGrid>();
-
             int count = inside.Count / (height - 2);
             int counter = 1;
             foreach (GraphicGrid item in inside)
