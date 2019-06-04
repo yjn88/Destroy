@@ -1,5 +1,9 @@
 # Destroy
 
+[![Build Status](https://img.shields.io/github/license/GreatDestroyerCharlie/Destroy.svg)](https://github.com/GreatDestroyerCharlie/Destroy/blob/master/LICENSE)
+[![GitHub issues](https://img.shields.io/github/issues/GreatDestroyerCharlie/Destroy.svg)](https://github.com/GreatDestroyerCharlie/Destroy/issues)
+[![Stars](https://img.shields.io/github/stars/GreatDestroyerCharlie/Destroy.svg?style=social)](https://github.com/GreatDestroyerCharlie/Destroy)
+
 ### GreatDestroyerCharlie Presents (开发者还包括kyasever)
 
 ## 欢迎来到Destroy的储存库!
@@ -17,7 +21,7 @@ Destroy是一个使用C/C++，C#打造的控制台游戏引擎, 专为[Windows C
 
 ![Computer](https://github.com/GreatDestroyerCharlie/Destroy/blob/master/Docs/computer.gif)
 
-![Logo](https://github.com/GreatDestroyerCharlie/Destroy/blob/master/Docs/logo.gif)
+![effect](https://github.com/GreatDestroyerCharlie/Destroy/blob/master/Docs/effect.gif)
 
 ## 特性
 
@@ -25,11 +29,11 @@ Destroy是一个使用C/C++，C#打造的控制台游戏引擎, 专为[Windows C
 * 自定义字体以及字体大小
 * 键盘 & 鼠标支持
 * 高精度计时器
-* 高性能CONSOLE类
 * 支持播放.mp3与.wav格式的音频
 * 简易且容易扩展的的网络模块
 * 简易的UI库
 * 寻路系统
+* 十分强大的CONSOLE类
 * 十分强大的图形API
 * 良好且扁平化的架构
 * 中文注释
@@ -107,7 +111,7 @@ Destroy是一个使用C/C++，C#打造的控制台游戏引擎, 专为[Windows C
 
 ## 文档
 
-阅读[Wiki](https://github.com/GreatDestroyerCharlie/Destroy/wiki)以获取更多API的简介
+阅读[Wiki📖](https://github.com/GreatDestroyerCharlie/Destroy/wiki)以获取更多API的简介
 
 ## 证书
 
@@ -117,7 +121,7 @@ Destroy是一个使用C/C++，C#打造的控制台游戏引擎, 专为[Windows C
 
 感谢[kyasever](https://github.com/kyasever)在合作时提供的技术支持
 
-如果想参与贡献代码欢迎提交Pull request
+如果想贡献代码👍欢迎提交[Pull request](https://github.com/GreatDestroyerCharlie/Destroy/pulls)
 
 如果想支持一下本项目的发展，别忘了给一个星🌟哦
 
