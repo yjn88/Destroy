@@ -234,7 +234,24 @@ EXPORT_FUNC MAXIMIZE_WINDOW(BOOL maximize)
     }
     //Dont care the result value
     ShowWindow(hConsoleWindow, cmd);
-    
+
+    return TRUE;
+}
+
+//ScreenToClient
+//https://docs.microsoft.com/en-us/windows/desktop/api/winuser/nf-winuser-screentoclient
+EXPORT_FUNC SCREEN_TO_CLIENT(HWND hConsoleWindow, int* x, int* y)
+{
+    POINT point;
+    point.x = *x;
+    point.y = *y;
+    BOOL r = ScreenToClient(hConsoleWindow, &point);
+    if (r == FALSE)
+    {
+        return FALSE;
+    }
+    *x = point.x;
+    *y = point.y;
     return TRUE;
 }
 

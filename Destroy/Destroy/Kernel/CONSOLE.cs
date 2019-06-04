@@ -188,11 +188,28 @@
 
         private const int FACE_SIZE = 32; //默认是32
 
+        private static IntPtr consoleWindowHandle;
+
         private static IntPtr inputHandle;
 
         private static IntPtr outputHandle;
 
         private static IntPtr errorHandle;
+
+        /// <summary>
+        /// 控制台窗体句柄
+        /// </summary>
+        public static IntPtr ConsoleWindowHandle
+        {
+            get
+            {
+                if(consoleWindowHandle == IntPtr.Zero)
+                {
+                    Error.Check(KERNEL.GET_WINDOW_HANDLE(out consoleWindowHandle));
+                }
+                return consoleWindowHandle;
+            }
+        }
 
         /// <summary>
         /// 控制台输入句柄

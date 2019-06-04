@@ -124,6 +124,16 @@
         [DllImport(DESTROY_KERNEL)]
         public static extern bool MAXIMIZE_WINDOW(bool maximize);
 
+        /// <summary>
+        /// 桌面坐标转换为窗口坐标(传入相对于桌面的坐标, 返回相对于窗口的坐标)
+        /// </summary>
+        /// <param name="hConsoleWindow">窗口句柄</param>
+        /// <param name="x">桌面坐标x</param>
+        /// <param name="y">桌面坐标y</param>
+        /// <returns>是否成功</returns>
+        [DllImport(DESTROY_KERNEL)]
+        public static extern bool SCREEN_TO_CLIENT(IntPtr hConsoleWindow, ref int x, ref int y);
+
         #endregion
 
         #region Console

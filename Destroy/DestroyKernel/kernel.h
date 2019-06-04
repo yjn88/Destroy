@@ -59,6 +59,8 @@ EXPORT_FUNC MESSAGE_BOX(WCHAR * text, WCHAR * caption, UINT type, int* choose);
 
 EXPORT_FUNC MAXIMIZE_WINDOW(BOOL maximize);
 
+EXPORT_FUNC SCREEN_TO_CLIENT(HWND hConsoleWindow, int* x, int* y);
+
 #pragma endregion
 
 #pragma region Console
