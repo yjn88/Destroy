@@ -1,4 +1,6 @@
-# Destroy ![logo](https://github.com/GreatDestroyerCharlie/Destroy/tree/master/Docs/logo.png)
+# Destroy
+
+![logo](https://github.com/GreatDestroyerCharlie/Destroy/blob/master/Docs/logo.png)
 
 [![Build Status](https://img.shields.io/github/license/GreatDestroyerCharlie/Destroy.svg)](https://github.com/GreatDestroyerCharlie/Destroy/blob/master/LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/GreatDestroyerCharlie/Destroy.svg)](https://github.com/GreatDestroyerCharlie/Destroy/issues)
