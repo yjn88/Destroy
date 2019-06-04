@@ -7,6 +7,12 @@
 Destroy是一个使用C/C++，C#打造的控制台游戏引擎, 专为[Windows Console](https://github.com/microsoft/terminal)设计。
 它提供了C#编写的API，并使用C/C++来控制Windows的conhost.exe(创建窗体界面并进行字体的渲染等)。它拥有其他控制台游戏引擎(玩具)不具备的特性。
 
+## 注意
+
+* 项目已经通过了在64位Windows 10 1803与1809版本上的测试
+
+* 项目依赖于 DotNet Framework 4.7.2
+
 ## 示例
 
 ![Computer](https://github.com/GreatDestroyerCharlie/Destroy/blob/master/Docs/computer.gif)
@@ -31,10 +37,13 @@ Destroy是一个使用C/C++，C#打造的控制台游戏引擎, 专为[Windows C
 ## 立即上手体验
 
 * 首先你需要创建一个C#控制台项目(.Net Framework)
-* 接下来编译DestroyKernel与Destroy或下载可用的[Release](https://github.com/GreatDestroyerCharlie/Destroy/releases)以获得动态链接库(dll), 并将Destroy.dll与DestroyKernel.dll一同放在控制台项目的bin文件夹里
-* 在控制台项目中添加对Destroy.dll的引用
+* 在Github上下载本项目的.zip文件并解压
+* 编译Destroy.sln中的Destroy项目与DestroyKernel项目并拿到两个项目的.dll文件
+* 也可以选择跳过上面两步，直接下载可用的[Release](https://github.com/GreatDestroyerCharlie/Destroy/releases)
+* 将两个.dll文件放到C#控制台项目的bin文件夹里
+* 在C#控制台项目中添加对Destroy.dll的引用(不需要添加对DestroyKernel.dll的引用)
 
-    构造控制台:
+    构造控制台
     ``` cs
     //构造控制台
     Graphics graphics = RuntimeEngine.Construct2
@@ -49,7 +58,7 @@ Destroy是一个使用C/C++，C#打造的控制台游戏引擎, 专为[Windows C
     );
     ```
 
-    开始游戏的生命周期:
+    开始游戏的生命周期
     ``` cs
     //只被调用一次用于初始化游戏逻辑
     void Start()
@@ -73,7 +82,7 @@ Destroy是一个使用C/C++，C#打造的控制台游戏引擎, 专为[Windows C
     );
     ```
 
-    输入与输出:
+    输入与输出
     ``` cs
     void Start()
     {
@@ -96,12 +105,6 @@ Destroy是一个使用C/C++，C#打造的控制台游戏引擎, 专为[Windows C
     }
     ```
 
-## 其他文档
-
-[前期版本](https://github.com/GreatDestroyerCharlie/Destroy/blob/master/Docs/README.md)
-
-[Dev文档](https://github.com/GreatDestroyerCharlie/Destroy/blob/master/Docs/Dev.md)
-
 ## 文档
 
 阅读[Wiki](https://github.com/GreatDestroyerCharlie/Destroy/wiki)以获取更多API的简介
@@ -114,4 +117,12 @@ Destroy是一个使用C/C++，C#打造的控制台游戏引擎, 专为[Windows C
 
 感谢[kyasever](https://github.com/kyasever)在合作时提供的技术支持
 
-如果想支持一下本项目的发展, 别忘了给一个星🌟哦
+如果想参与贡献代码欢迎提交Pull request
+
+如果想支持一下本项目的发展，别忘了给一个星🌟哦
+
+## 推荐阅读
+
+[Roguelike](http://pre-sence.com/archives/roguelike-dossier)
+
+[Dev文档](https://github.com/GreatDestroyerCharlie/Destroy/blob/master/Docs/Dev.md)
