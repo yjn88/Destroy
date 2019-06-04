@@ -11,11 +11,17 @@
 Destroy是一个使用C/C++，C#打造的控制台游戏引擎, 专为[Windows Console](https://github.com/microsoft/terminal)设计。
 它提供了C#编写的API，并使用C/C++来控制Windows的conhost.exe(创建窗体界面并进行字体的渲染等)。它拥有其他控制台游戏引擎(玩具)不具备的特性。
 
+你可以使用Destroy做出ASCII风格的游戏以及很酷的控制台应用程序，比如：音乐播放器，文本编辑器甚至是像素化的3D游戏
+
 ## 注意
 
 * 项目已经通过了在64位Windows 10 1803与1809版本上的测试
 
 * 项目依赖于 DotNet Framework 4.7.2
+
+* 如果Destroy调用DestroyKernel时失败，请修改Destroy与DestroyKernel的目标平台，使它们保持一致并重新编译
+
+* 为什么现在还没有可用的release发布？虽然引擎已经十分稳定，但是示例项目并不完善，所以1.0 release会跟随示例项目一起发布
 
 ## 示例
 
@@ -41,7 +47,7 @@ Destroy是一个使用C/C++，C#打造的控制台游戏引擎, 专为[Windows C
 ## 立即上手体验
 
 * 首先你需要创建一个C#控制台项目(.Net Framework)
-* 在Github上下载本项目的.zip文件并解压
+* 下载本项目的.zip文件并解压
 * 编译Destroy.sln中的Destroy项目与DestroyKernel项目并拿到两个项目的.dll文件
 * 也可以选择跳过上面两步，直接下载可用的[Release](https://github.com/GreatDestroyerCharlie/Destroy/releases)
 * 将两个.dll文件放到C#控制台项目的bin文件夹里
@@ -62,7 +68,7 @@ Destroy是一个使用C/C++，C#打造的控制台游戏引擎, 专为[Windows C
     );
     ```
 
-    开始游戏的生命周期
+    游戏的生命周期
     ``` cs
     //只被调用一次用于初始化游戏逻辑
     void Start()
@@ -90,7 +96,7 @@ Destroy是一个使用C/C++，C#打造的控制台游戏引擎, 专为[Windows C
     ``` cs
     void Start()
     {
-        //播放Logo
+        //窗口特效
         Assets.MadeWithDestroy(true, 0, 0);
         //创建渲染网格
         graphics.CreatGridByString(Vector2.Zero, "你好世界", Colour.Red, Colour.Black);
@@ -112,6 +118,11 @@ Destroy是一个使用C/C++，C#打造的控制台游戏引擎, 专为[Windows C
 ## 文档
 
 阅读[Wiki📖](https://github.com/GreatDestroyerCharlie/Destroy/wiki)以获取更多API的简介
+
+## 更新蓝图
+
+* 完善示例项目
+* 利用OpenGL实现各种格式的图像渲染
 
 ## 证书
 
