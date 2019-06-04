@@ -1,10 +1,10 @@
 # Destroy
 
-![logo](https://github.com/GreatDestroyerCharlie/Destroy/blob/master/Docs/logo.png)
-
 [![Build Status](https://img.shields.io/github/license/GreatDestroyerCharlie/Destroy.svg)](https://github.com/GreatDestroyerCharlie/Destroy/blob/master/LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/GreatDestroyerCharlie/Destroy.svg)](https://github.com/GreatDestroyerCharlie/Destroy/issues)
 [![Stars](https://img.shields.io/github/stars/GreatDestroyerCharlie/Destroy.svg?style=social)](https://github.com/GreatDestroyerCharlie/Destroy)
+
+![logo](https://github.com/GreatDestroyerCharlie/Destroy/blob/master/Docs/logo.png)
 
 ### GreatDestroyerCharlie Presents (开发者还包括kyasever)
 
