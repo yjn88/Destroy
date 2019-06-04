@@ -9,6 +9,8 @@
     /// </summary>
     public static class Assets
     {
+        #region 常用字符
+
         /// <summary>
         /// 空
         /// </summary>
@@ -28,6 +30,103 @@
         /// 菱形
         /// </summary>
         public const char DIAMOND = '◆';
+
+        /// <summary>
+        /// 实心圆
+        /// </summary>
+        public const char SOLID_CIRCLE = '●';
+
+        /// <summary>
+        /// 空心圆
+        /// </summary>
+        public const char HOLLOW_CIRCLE = '○';
+
+        /// <summary>
+        /// 粗边框1
+        /// </summary>
+        public const char THICK_BORDER_1 = '╔';
+
+        /// <summary>
+        /// 粗边框2
+        /// </summary>
+        public const char THICK_BORDER_2 = '╗';
+
+        /// <summary>
+        /// 粗边框3
+        /// </summary>
+        public const char THICK_BORDER_3 = '╚';
+
+        /// <summary>
+        /// 粗边框4
+        /// </summary>
+        public const char THICK_BORDER_4 = '╝';
+
+        /// <summary>
+        /// 粗边框5
+        /// </summary>
+        public const char THICK_BORDER_5 = '═';
+
+        /// <summary>
+        /// 粗边框6
+        /// </summary>
+        public const char THICK_BORDER_6 = '║';
+
+        /// <summary>
+        /// 细边框1
+        /// </summary>
+        public const char THIN_BORDER_1 = '┌';
+
+        /// <summary>
+        /// 细边框2
+        /// </summary>
+        public const char THIN_BORDER_2 = '┐';
+
+        /// <summary>
+        /// 细边框3
+        /// </summary>
+        public const char THIN_BORDER_3 = '└';
+
+        /// <summary>
+        /// 细边框4
+        /// </summary>
+        public const char THIN_BORDER_4 = '┘';
+
+        /// <summary>
+        /// 细边框5
+        /// </summary>
+        public const char THIN_BORDER_5 = '─';
+
+        /// <summary>
+        /// 细边框6
+        /// </summary>
+        public const char THIN_BORDER_6 = '│';
+
+        /// <summary>
+        /// 细边框7
+        /// </summary>
+        public const char THIN_BORDER_7 = '├';
+
+        /// <summary>
+        /// 细边框8
+        /// </summary>
+        public const char THIN_BORDER_8 = '┤';
+
+        /// <summary>
+        /// 细边框9
+        /// </summary>
+        public const char THIN_BORDER_9 = '┬';
+
+        /// <summary>
+        /// 细边框10
+        /// </summary>
+        public const char THIN_BORDER_10 = '┴';
+
+        /// <summary>
+        /// 细边框11
+        /// </summary>
+        public const char THIN_BORDER_11 = '┼';
+
+        #endregion
 
         /// <summary>
         /// 播放MadeWithDestroy的动画
@@ -96,7 +195,7 @@
             //根据字符串数组初始化宽高
             Resources.GetLinesSize(lines, out int width, out int height);
             //初始化控制台
-            Graphics graphics = RuntimeEngine.Construct2(ConsoleType.Default, 
+            Graphics graphics = RuntimeEngine.Construct2(ConsoleType.Default,
                 true, false, (short)width, (short)height, CharWidth.Single);
             //变量定义
             GraphicContainer computer = null;

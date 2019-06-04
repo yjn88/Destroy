@@ -31,6 +31,9 @@
                 case ConsoleType.Default:
                     SetFontAndWindow("Consolas", bold, 16, 16, maximum, width, height);
                     break;
+                case ConsoleType.Chinese:
+                    SetFontAndWindow("新宋体", bold, 16, 16, maximum, width, height);
+                    break;
                 case ConsoleType.Pixel:
                     SetFontAndWindow("Terminal", bold, 8, 8, maximum, width, height);
                     break;

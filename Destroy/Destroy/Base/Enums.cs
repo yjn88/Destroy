@@ -8,19 +8,26 @@
     public enum ConsoleType
     {
         /// <summary>
-        /// 默认
+        /// 默认(Consolas)
         /// </summary>
-        Default = 1,
+        Default,
+
+        /// <summary>
+        /// 中文字体(新宋体)
+        /// </summary>
+        Chinese,
 
         /// <summary>
         /// 像素风格
         /// </summary>
-        Pixel = 2,
+        [Obsolete]
+        Pixel,
 
         /// <summary>
         /// 高品质风格
         /// </summary>
-        HignQuality = 3,
+        [Obsolete]
+        HignQuality,
     }
 
     /// <summary>
