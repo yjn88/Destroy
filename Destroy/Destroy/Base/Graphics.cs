@@ -144,7 +144,7 @@
         {
             Position = position;
             Left = left;
-            Right = new CharInfo('\0', left.ForeColor, left.BackColor);
+            Right = new CharInfo(Assets.EMPTY, left.ForeColor, left.BackColor);
             Depth = depth;
             Active = true;
             Fixed = true;
@@ -165,6 +165,17 @@
             Depth = depth;
             Active = true;
             Fixed = true;
+        }
+
+        /// <summary>
+        /// 设置图形网格的颜色(会同时修改Left与Right属性的颜色)
+        /// </summary>
+        /// <param name="foreColor">前景色</param>
+        /// <param name="backColor">背景色</param>
+        public void SetColor(Colour foreColor, Colour backColor)
+        {
+            Left.SetColor(foreColor, backColor);
+            Right.SetColor(foreColor, backColor);
         }
     }
 

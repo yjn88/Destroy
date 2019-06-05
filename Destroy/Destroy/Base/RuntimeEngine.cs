@@ -6,6 +6,9 @@
 
     /// <summary>
     /// 运行时引擎, 接管整个游戏的生命周期 <see langword="static"/>
+    /// ConsoleType:参数控制字体显示(某些字符在不同模式下会有不同的显示)
+    /// CharWidth参:数控制排版方式(控制字符打印的排版, 设置错误容易产生字符叠加的情况)
+    /// 请务必保证这两个参数设置正确
     /// </summary>
     public static class RuntimeEngine
     {

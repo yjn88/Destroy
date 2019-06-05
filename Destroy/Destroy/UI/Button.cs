@@ -23,11 +23,38 @@
         /// </summary>
         public event Action OnClick;
 
+        /// <summary>
+        /// 图形容器
+        /// </summary>
+        public GraphicContainer GraphicContainer;
+
+        /// <summary>
+        /// 是否触摸直接生效(一般来说设置该值为true可以增强灵敏度)
+        /// </summary>
+        public bool Touch;
+
         private List<GraphicGrid> graphicGrids;
 
         private CharWidth charWidth;
 
         private HashSet<Vector2> positions;
+
+        /// <summary>
+        /// 构造方法
+        /// </summary>
+        /// <param name="graphicGrid">图形网格</param>
+        /// <param name="charWidth">字符宽度</param>
+        public Button(GraphicGrid graphicGrid, CharWidth charWidth)
+        {
+            graphicGrids = new List<GraphicGrid> { graphicGrid };
+            this.charWidth = charWidth;
+            positions = new HashSet<Vector2>();
+            foreach (GraphicGrid item in graphicGrids)
+            {
+                positions.Add(item.Position);
+            }
+            GraphicContainer = new GraphicContainer(graphicGrids);
+        }
 
         /// <summary>
         /// 构造方法
@@ -43,6 +70,7 @@
             {
                 positions.Add(item.Position);
             }
+            GraphicContainer = new GraphicContainer(graphicGrids);
         }
 
         /// <summary>
@@ -57,9 +85,19 @@
             if (enter)
             {
                 OnEnter?.Invoke();
-                if (Input.GetMouseButtonUp(MouseButton.Left))
+                if (Touch)
                 {
-                    OnClick?.Invoke();
+                    if (Input.GetMouseButton(MouseButton.Left))
+                    {
+                        OnClick?.Invoke();
+                    }
+                }
+                else
+                {
+                    if (Input.GetMouseButtonUp(MouseButton.Left))
+                    {
+                        OnClick?.Invoke();
+                    }
                 }
             }
             else
