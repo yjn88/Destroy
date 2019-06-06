@@ -31,6 +31,18 @@ Destroy是一个使用C/C++，C#打造的控制台游戏引擎, 专为[Windows C
 
 * 为什么现在还没有可用的release发布？虽然引擎已经十分稳定，但是示例项目并不完善，所以1.0 release会跟随示例项目一起发布
 
+* 如果你想使用Destroy的AUDIO请进行相应设置
+
+    ```cs
+
+    [System.STAThread]
+    public static void Main()
+    {
+    } 
+
+    ```
+
+
 ## 示例
 
 ![Computer](https://github.com/GreatDestroyerCharlie/Destroy/blob/master/Docs/computer.gif)

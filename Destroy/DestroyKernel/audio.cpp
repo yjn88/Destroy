@@ -37,7 +37,7 @@ EXPORT_FUNC_CPP PLAY(WCHAR* path, BOOL repeat)
     wstring playSet = L"";
     if (repeat)
     {
-        playSet + L" repeat";
+        playSet += L" repeat";
     }
     wstring p(path);
     wstring playCmd = L"play " + p + playSet;

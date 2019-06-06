@@ -56,6 +56,7 @@
 
     public class Program
     {
+        [System.STAThread]
         public static void Main()
         {
             Gobang gobang = new Gobang();

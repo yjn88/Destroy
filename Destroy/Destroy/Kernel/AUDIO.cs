@@ -1,10 +1,10 @@
 ﻿namespace Destroy.Kernel
 {
-    using System;
     using System.Runtime.InteropServices;
 
     /// <summary>
-    /// 音频(可以播放.wav .mp3 ...格式的音频) <see langword="static"/>
+    /// 音频(可以播放.wav .mp3 ...格式的音频), 需要设置Main方法为STAThread, 否则可能会打开或者播放失败
+    /// <see langword="static"/>
     /// </summary>
     public static class AUDIO
     {
@@ -13,7 +13,6 @@
         /// </summary>
         /// <param name="path">路径</param>
         /// <returns>是否成功</returns>
-        [Obsolete("BUG in C#, normal in C++. I dont know why now :(")]
         [DllImport(KERNEL.DESTROY_KERNEL, CharSet = CharSet.Unicode)]
         public static extern bool OPEN(string path);
 

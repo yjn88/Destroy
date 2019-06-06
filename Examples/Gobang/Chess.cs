@@ -368,8 +368,10 @@
                 string resources = Path.Combine(info.Parent.Parent.FullName, "Resources");
                 string path = Path.Combine(resources, "CCCP_1977.mp3");
 
-                AUDIO.PLAY(path, true);
+                AUDIO.OPEN(path);
                 AUDIO.SET_VOLUME(path, 50);
+                AUDIO.PLAY(path, true);
+                AUDIO.CLOSE(path);
             }
 
             switch (gameResult)
