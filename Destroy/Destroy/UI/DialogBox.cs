@@ -32,34 +32,15 @@
         public DialogBox(Graphics graphics, float time, int widthLimit, Vector2 position,
             string str, Colour foreColor, Colour backColor, uint depth = 0)
         {
-            List<GraphicGrid> graphicGrids = null;
+            TextBox textBox = new TextBox(graphics, widthLimit, position, str, foreColor, backColor, depth);
 
-            if (graphics.CharWidth == CharWidth.Single)
+            foreach (GraphicGrid item in textBox.GraphicGrids)
             {
-                graphicGrids = graphics.CreatGridByString1(
-                    position, str, foreColor, backColor, depth);
-            }
-            else if (graphics.CharWidth == CharWidth.Double)
-            {
-                graphicGrids = graphics.CreatGridByString(
-                    position, str, foreColor, backColor, depth);
-            }
-
-            foreach (GraphicGrid item in graphicGrids)
-            {
-                int tempX = item.Position.X;
-                int indentX = 0;
-                while (tempX / (widthLimit + position.X) > 0)
-                {
-                    tempX -= widthLimit;
-                    indentX += widthLimit;
-                    item.Position.Y++;
-                }
-                item.Position.X -= indentX;
                 item.Active = false;
             }
-            GraphicGrids = graphicGrids;
-            interval = time / graphicGrids.Count;
+
+            GraphicGrids = textBox.GraphicGrids;
+            interval = time / textBox.GraphicGrids.Count;
         }
 
         /// <summary>
