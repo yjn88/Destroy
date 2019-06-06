@@ -9,7 +9,7 @@
         public const int HEIGHT = 30;
         public const int CHESSBOARD_WIDTH = 15;
         public const int CHESSBOARD_HEIGHT = 15;
-        private const int STEP_TO_WIN = 5;
+        public const int STEP_TO_WIN = 5;
         public const int FPS = 200;
         public const string TITLE = "Gobang";
         public static Colour ChessboardForeColor = Colour.Black;

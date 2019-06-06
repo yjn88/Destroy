@@ -35,6 +35,11 @@
         public static Vector2 MousePosition { get; private set; }
 
         /// <summary>
+        /// 根据当前字体尺寸计算鼠标在控制台内的坐标(通常用来代替CursorPosition)
+        /// </summary>
+        public static Vector2 MousePositionInConsole { get; private set; }
+
+        /// <summary>
         /// 获取按键
         /// </summary>
         /// <param name="consoleKey"></param>
@@ -178,14 +183,25 @@
             //判断鼠标是否则在控制台窗口内
             KERNEL.GET_WINDOW_POS(out int windowPosX, out int windowPosY);
             KERNEL.GET_WINDOW_SIZE(out int width, out int height);
-            if (mousePosX > windowPosX && mousePosX < windowPosX + width &&
-                mousePosY > windowPosY && mousePosY < windowPosY + height)
+            if (mousePosX >= windowPosX && mousePosX < windowPosX + width &&
+                mousePosY >= windowPosY && mousePosY < windowPosY + height)
             {
                 MouseInConsole = true;
             }
             else
             {
                 MouseInConsole = false;
+            }
+
+            //鼠标坐标=>控制台坐标
+            if (MouseInConsole)
+            {
+                KERNEL.SCREEN_TO_CLIENT(CONSOLE.ConsoleWindowHandle, ref mousePosX, ref mousePosY);
+
+                CONSOLE.GetConsoleFont(CONSOLE.OutputHandle, out bool bold,
+                    out short fontWidth, out short fontHeight, out string fontName);
+
+                MousePositionInConsole = new Vector2(mousePosX / fontWidth, mousePosY / fontHeight);
             }
         }
 

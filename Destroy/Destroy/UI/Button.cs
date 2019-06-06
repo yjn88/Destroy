@@ -78,7 +78,8 @@
         /// </summary>
         public override void Update()
         {
-            Vector2 cursorPos = new Vector2(Input.CursorPosition.X / (int)charWidth, Input.CursorPosition.Y);
+            Vector2 pos = Input.MousePositionInConsole;
+            Vector2 cursorPos = new Vector2(pos.X / (int)charWidth, pos.Y);
 
             bool enter = positions.Contains(cursorPos) && Input.MouseInConsole;
 
