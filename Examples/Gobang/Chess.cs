@@ -3,7 +3,9 @@
     using Destroy;
     using Destroy.Kernel;
     using Destroy.UI;
+    using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Text;
 
     public enum ChessType
@@ -360,6 +362,16 @@
                 graphicGrid.SetColor(Colour.White, graphicGrid.Left.BackColor);
             }
 
+            void PlaySovietNationalAnthem()
+            {
+                DirectoryInfo info = new DirectoryInfo(Environment.CurrentDirectory);
+                string resources = Path.Combine(info.Parent.Parent.FullName, "Resources");
+                string path = Path.Combine(resources, "CCCP_1977.mp3");
+
+                AUDIO.PLAY(path, true);
+                AUDIO.SET_VOLUME(path, 50);
+            }
+
             switch (gameResult)
             {
                 case GameResult.Fail:
@@ -379,11 +391,13 @@
                 case GameResult.BlackWin:
                     {
                         CreatBlackChess();
+                        PlaySovietNationalAnthem();
                     }
                     break;
                 case GameResult.WhiteWin:
                     {
                         CreatWhiteChess();
+                        PlaySovietNationalAnthem();
                     }
                     break;
                 case GameResult.BlackDraw:
