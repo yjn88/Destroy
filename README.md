@@ -14,7 +14,7 @@ Destroy是一个使用C/C++，C#打造的控制台游戏引擎, 专为[Windows C
 它提供了C#编写的API，并使用C/C++来控制Windows的conhost.exe(创建窗体界面并进行字体的渲染等)。它拥有其他控制台游戏引擎(玩具)不具备的特性
 
 为什么我要创建这个库？
-* 体验开发游戏引擎而不是局限于Unity
+* 体验开发游戏引擎而不是局限于使用Unity
 * 尝试C/C++与C#混合编程
 * 帮助跟我一样的初学者学习编程
 * 制作复古的ASCII风格游戏
@@ -38,16 +38,13 @@ Destroy是一个使用C/C++，C#打造的控制台游戏引擎, 专为[Windows C
     [System.STAThread]
     public static void Main()
     {
-    } 
+    }
 
     ```
-
 
 ## 示例
 
 ![Computer](https://github.com/GreatDestroyerCharlie/Destroy/blob/master/Docs/computer.gif)
-
-![effect](https://github.com/GreatDestroyerCharlie/Destroy/blob/master/Docs/effect.gif)
 
 ## 特性
 
@@ -143,7 +140,7 @@ Destroy是一个使用C/C++，C#打造的控制台游戏引擎, 专为[Windows C
 
 ## 更新蓝图
 
-* 完善示例项目
+* 完成Gobang
 * 完善的资源管理与场景管理
 * 编写README英文版
 * 利用OpenGL实现各种格式的图像渲染

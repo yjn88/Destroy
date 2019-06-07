@@ -3,9 +3,7 @@
     using Destroy;
     using Destroy.Kernel;
     using Destroy.UI;
-    using System;
     using System.Collections.Generic;
-    using System.IO;
     using System.Text;
 
     public enum ChessType
@@ -82,7 +80,7 @@
         /// </summary>
         public bool Playing;
 
-        public Chessboard(Graphics graphics, Vector2 position, int width, int height,
+        public Chessboard(Graphics graphics, UIManager manager, Vector2 position, int width, int height,
             int stepToWin, Colour foreColor, Colour backColor)
         {
             Graphics = graphics;
@@ -104,6 +102,7 @@
                 {
                     Chesses[i, j] = new Chess
                     (
+                        manager,
                         this,
                         graphics.CreatGrid
                         (
@@ -112,14 +111,6 @@
                         )
                     );
                 }
-            }
-        }
-
-        public void Update()
-        {
-            foreach (Chess item in Chesses)
-            {
-                item.Update();
             }
         }
 
@@ -307,112 +298,23 @@
     {
         public ChessType ChessType;
 
-        public Vector2 Position => graphicGrid.Position;
+        public Vector2 Position => GraphicGrid.Position;
 
         public Vector2 PositionOnChessboard => Position - chessboard.Position;
 
+        public Button Button; //Button的事件需要在外部赋值
+
+        public GraphicGrid GraphicGrid;
+
         private Chessboard chessboard;
 
-        private GraphicGrid graphicGrid;
-
-        private Button button;
-
-        public Chess(Chessboard chessboard, GraphicGrid graphicGrid)
+        public Chess(UIManager manager, Chessboard chessboard, GraphicGrid graphicGrid)
         {
             ChessType = ChessType.None;
             this.chessboard = chessboard;
-            this.graphicGrid = graphicGrid;
-            button = new Button(graphicGrid, CharWidth.Double);
-            button.Touch = true;
-            button.OnEnter += Enter;
-            button.OnLeave += Leave;
-            button.OnClick += Click;
-        }
-
-        public void Update()
-        {
-            button.Update();
-        }
-
-        private void Enter()
-        {
-            graphicGrid.SetColor(graphicGrid.Left.ForeColor, Colour.Gray);
-        }
-
-        private void Leave()
-        {
-            graphicGrid.SetColor(graphicGrid.Left.ForeColor, Gobang.ChessboardBackColor);
-        }
-
-        private void Click()
-        {
-            GameResult gameResult = chessboard.Calculate(PositionOnChessboard);
-
-            void CreatBlackChess()
-            {
-                //改变字符并且改变前景色
-                graphicGrid.Left.UnicodeChar = Assets.SOLID_CIRCLE;
-                graphicGrid.SetColor(Colour.Black, graphicGrid.Left.BackColor);
-            }
-
-            void CreatWhiteChess()
-            {
-                //改变字符并且改变前景色
-                graphicGrid.Left.UnicodeChar = Assets.SOLID_CIRCLE;
-                graphicGrid.SetColor(Colour.White, graphicGrid.Left.BackColor);
-            }
-
-            void PlaySovietNationalAnthem()
-            {
-                DirectoryInfo info = new DirectoryInfo(Environment.CurrentDirectory);
-                string resources = Path.Combine(info.Parent.Parent.FullName, "Resources");
-                string path = Path.Combine(resources, "CCCP_1977.mp3");
-
-                AUDIO.OPEN(path);
-                AUDIO.SET_VOLUME(path, 50);
-                AUDIO.PLAY(path, true);
-                AUDIO.CLOSE(path);
-            }
-
-            switch (gameResult)
-            {
-                case GameResult.Fail:
-                    {
-                        return;
-                    }
-                case GameResult.Black:
-                    {
-                        CreatBlackChess();
-                    };
-                    break;
-                case GameResult.White:
-                    {
-                        CreatWhiteChess();
-                    }
-                    break;
-                case GameResult.BlackWin:
-                    {
-                        CreatBlackChess();
-                        PlaySovietNationalAnthem();
-                    }
-                    break;
-                case GameResult.WhiteWin:
-                    {
-                        CreatWhiteChess();
-                        PlaySovietNationalAnthem();
-                    }
-                    break;
-                case GameResult.BlackDraw:
-                    {
-                        CreatBlackChess();
-                    }
-                    break;
-                case GameResult.WhiteDraw:
-                    {
-                        CreatWhiteChess();
-                    }
-                    break;
-            }
+            GraphicGrid = graphicGrid;
+            Button = new Button(manager, graphicGrid);
+            Button.Touch = true;
         }
     }
 }

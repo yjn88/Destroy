@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Chess.cs" />
+    <Compile Include="Network.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Serializer.cs" />
   </ItemGroup>

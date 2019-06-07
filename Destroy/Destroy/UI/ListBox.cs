@@ -19,7 +19,7 @@
         public int Height;
 
         /// <summary>
-        /// 图形网格集合
+        /// 图形网格集合(包括边框)
         /// </summary>
         public List<GraphicGrid> GraphicGrids;
 
@@ -31,68 +31,41 @@
         /// <summary>
         /// 构造方法
         /// </summary>
-        /// <param name="graphics">图形对象(必须是双宽字符)</param>
+        /// <param name="manager">UI管理器</param>
         /// <param name="width">宽度(不能小于2)</param>
         /// <param name="height">高度(不能小于2)</param>
         /// <param name="position">坐标</param>
         /// <param name="foreColor">前景色</param>
         /// <param name="backColor">背景色</param>
         /// <param name="depth">深度</param>
-        public ListBox(Graphics graphics, int width, int height,
+        public ListBox(UIManager manager, int width, int height,
             Vector2 position, Colour foreColor, Colour backColor, uint depth = 0)
         {
-            if (graphics.CharWidth != CharWidth.Double)
-            {
-                Error.Pop("只适用于双宽模式!");
-            }
+            Graphics graphics = manager.Graphics;
+            manager.AddUIObject(this);
+
             if (width < 2 || height < 2)
             {
                 Error.Pop("宽度或高度设置得太小!");
             }
+
             Width = width;
             Height = height;
-            //构造字符串数组
-            List<string> lines = new List<string>();
-            StringBuilder builder = new StringBuilder();
-            //构造第一行
-            builder.Append("┌");
-            for (int i = 0; i < width - 2; i++)
-            {
-                builder.Append("─");
-            }
-            builder.Append("┐");
-            lines.Add(builder.ToString());
-            //构造中间行
-            builder.Clear();
-            builder.Append("│");
-            for (int i = 0; i < width - 2; i++)
-            {
-                builder.Append("  ");
-            }
-            builder.Append("│");
-            string middleLine = builder.ToString();
-            for (int i = 0; i < height - 2; i++)
-            {
-                lines.Add(middleLine);
-            }
-            //构造最后一行
-            builder.Clear();
-            builder.Append("└");
-            for (int i = 0; i < width - 2; i++)
-            {
-                builder.Append("─");
-            }
-            builder.Append("┘");
-            lines.Add(builder.ToString());
+            string[] lines = CreatListBox(width, height);
 
             //创建图形网格集合
-            List<GraphicGrid> graphicGrids =
-                graphics.CreatGridByStrings(position, lines.ToArray(),
-                foreColor, backColor, depth);
-            GraphicGrids = graphicGrids;
+            if (graphics.CharWidth == CharWidth.Single)
+            {
+                GraphicGrids = graphics.CreatGridByStrings1(position, lines, foreColor, backColor, depth);
+            }
+            else if (graphics.CharWidth == CharWidth.Double)
+            {
+                GraphicGrids = graphics.CreatGridByStrings(position, lines, foreColor, backColor, depth);
+            }
+
             List<GraphicGrid> border = new List<GraphicGrid>();
             List<GraphicGrid> inside = new List<GraphicGrid>();
-            foreach (GraphicGrid item in graphicGrids)
+            foreach (GraphicGrid item in GraphicGrids)
             {
                 //border
                 if (item.Position.X == 0 || item.Position.X == width - 1 ||
@@ -130,6 +103,45 @@
         /// </summary>
         public override void Update()
         {
+        }
+
+        private string[] CreatListBox(int width, int height)
+        {
+            //构造字符串数组
+            List<string> lines = new List<string>();
+            StringBuilder builder = new StringBuilder();
+            //构造第一行
+            builder.Append("┌");
+            for (int i = 0; i < width - 2; i++)
+            {
+                builder.Append("─");
+            }
+            builder.Append("┐");
+            lines.Add(builder.ToString());
+            //构造中间行
+            builder.Clear();
+            builder.Append("│");
+            for (int i = 0; i < width - 2; i++)
+            {
+                builder.Append("  ");
+            }
+            builder.Append("│");
+            string middleLine = builder.ToString();
+            for (int i = 0; i < height - 2; i++)
+            {
+                lines.Add(middleLine);
+            }
+            //构造最后一行
+            builder.Clear();
+            builder.Append("└");
+            for (int i = 0; i < width - 2; i++)
+            {
+                builder.Append("─");
+            }
+            builder.Append("┘");
+            lines.Add(builder.ToString());
+
+            return lines.ToArray();
         }
     }
 }

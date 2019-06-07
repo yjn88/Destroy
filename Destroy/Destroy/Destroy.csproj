@@ -68,6 +68,7 @@
     <Compile Include="UI\DialogBox.cs" />
     <Compile Include="UI\ListBox.cs" />
     <Compile Include="UI\TextBox.cs" />
+    <Compile Include="UI\UIManager.cs" />
     <Compile Include="UI\UIObject.cs" />
   </ItemGroup>
   <ItemGroup>

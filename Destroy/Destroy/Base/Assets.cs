@@ -137,7 +137,7 @@
         /// <param name="consoleKey">按键</param>
         public static void MadeWithDestroy(bool center, short x, short y, ConsoleKey consoleKey = ConsoleKey.Enter)
         {
-            string logo = "Made width Destroy";
+            string logo = "Made with Destroy";
             if (center)
             {
                 x = (short)(CONSOLE.WindowWidth / 2);

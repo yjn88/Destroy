@@ -16,6 +16,15 @@
         /// <summary>
         /// 构造方法
         /// </summary>
+        /// <param name="graphicGrid">图形网格</param>
+        public GraphicContainer(GraphicGrid graphicGrid)
+        {
+            GraphicGrids = new List<GraphicGrid> { graphicGrid };
+        }
+
+        /// <summary>
+        /// 构造方法
+        /// </summary>
         /// <param name="graphicGrids">图形网格集合</param>
         public GraphicContainer(List<GraphicGrid> graphicGrids)
         {

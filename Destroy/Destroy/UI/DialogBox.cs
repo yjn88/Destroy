@@ -21,7 +21,7 @@
         /// <summary>
         /// 构造方法
         /// </summary>
-        /// <param name="graphics">图形对象</param>
+        /// <param name="manager">UI管理器</param>
         /// <param name="time">播放总时间</param>
         /// <param name="widthLimit">宽度限制(超出该宽度自动换行)</param>
         /// <param name="position">坐标</param>
@@ -29,10 +29,11 @@
         /// <param name="foreColor">前景色</param>
         /// <param name="backColor">背景色</param>
         /// <param name="depth">深度</param>
-        public DialogBox(Graphics graphics, float time, int widthLimit, Vector2 position,
+        public DialogBox(UIManager manager, float time, int widthLimit, Vector2 position,
             string str, Colour foreColor, Colour backColor, uint depth = 0)
         {
-            TextBox textBox = new TextBox(graphics, widthLimit, position, str, foreColor, backColor, depth);
+            TextBox textBox = new TextBox(manager, widthLimit, position, str, foreColor, backColor, depth);
+            manager.AddUIObject(this);
 
             foreach (GraphicGrid item in textBox.GraphicGrids)
             {

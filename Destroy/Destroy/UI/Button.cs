@@ -33,38 +33,33 @@
         /// </summary>
         public bool Touch;
 
-        private List<GraphicGrid> graphicGrids;
-
-        private CharWidth charWidth;
+        private UIManager manager;
 
         private HashSet<Vector2> positions;
 
         /// <summary>
         /// 构造方法
         /// </summary>
+        /// <param name="manager">UI管理器</param>
         /// <param name="graphicGrid">图形网格</param>
-        /// <param name="charWidth">字符宽度</param>
-        public Button(GraphicGrid graphicGrid, CharWidth charWidth)
+        public Button(UIManager manager, GraphicGrid graphicGrid)
         {
-            graphicGrids = new List<GraphicGrid> { graphicGrid };
-            this.charWidth = charWidth;
+            this.manager = manager;
+            manager.AddUIObject(this);
             positions = new HashSet<Vector2>();
-            foreach (GraphicGrid item in graphicGrids)
-            {
-                positions.Add(item.Position);
-            }
-            GraphicContainer = new GraphicContainer(graphicGrids);
+            positions.Add(graphicGrid.Position);
+            GraphicContainer = new GraphicContainer(graphicGrid);
         }
 
         /// <summary>
         /// 构造方法
         /// </summary>
+        /// <param name="manager">UI管理器</param>
         /// <param name="graphicGrids">图形网格集合</param>
-        /// <param name="charWidth">字符宽度</param>
-        public Button(List<GraphicGrid> graphicGrids, CharWidth charWidth)
+        public Button(UIManager manager, List<GraphicGrid> graphicGrids)
         {
-            this.graphicGrids = graphicGrids;
-            this.charWidth = charWidth;
+            this.manager = manager;
+            manager.AddUIObject(this);
             positions = new HashSet<Vector2>();
             foreach (GraphicGrid item in graphicGrids)
             {
@@ -79,7 +74,7 @@
         public override void Update()
         {
             Vector2 pos = Input.MousePositionInConsole;
-            Vector2 cursorPos = new Vector2(pos.X / (int)charWidth, pos.Y);
+            Vector2 cursorPos = new Vector2(pos.X / (int)manager.Graphics.CharWidth, pos.Y);
 
             bool enter = positions.Contains(cursorPos) && Input.MouseInConsole;
 

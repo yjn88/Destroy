@@ -5,7 +5,7 @@
     /// <summary>
     /// 文本框(会将文字进行排版显示)
     /// </summary>
-    public class TextBox
+    public class TextBox : UIObject
     {
         /// <summary>
         /// 图形网格集合
@@ -20,17 +20,19 @@
         /// <summary>
         /// 构造方法
         /// </summary>
-        /// <param name="graphics">图形对象</param>
+        /// <param name="manager">UI管理器</param>
         /// <param name="widthLimit">宽度限制(超出该宽度自动换行)</param>
         /// <param name="position">坐标</param>
         /// <param name="str">字符串</param>
         /// <param name="foreColor">前景色</param>
         /// <param name="backColor">背景色</param>
         /// <param name="depth">深度</param>
-        public TextBox(Graphics graphics, int widthLimit, Vector2 position,
+        public TextBox(UIManager manager, int widthLimit, Vector2 position,
             string str, Colour foreColor, Colour backColor, uint depth = 0)
         {
             List<GraphicGrid> graphicGrids = null;
+            Graphics graphics = manager.Graphics;
+            manager.AddUIObject(this);
 
             if (graphics.CharWidth == CharWidth.Single)
             {
@@ -58,6 +60,13 @@
 
             WidthLimit = widthLimit;
             GraphicGrids = graphicGrids;
+        }
+
+        /// <summary>
+        /// 更新
+        /// </summary>
+        public override void Update()
+        {
         }
     }
 }
